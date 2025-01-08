@@ -1,0 +1,107 @@
+
+import pandas
+import streamlit as st
+
+import logging
+from src.domain.value_objects.postal_code import PostalCode
+from src.domain.models.charging_station import ChargingStation
+from src.domain.events.station_search_performed import StationSearchPerformed
+import src.utils.logger as lg
+
+@lg.logger_decorator
+class SearchService:
+    def search_by_postal_code(self, merged_df: pandas.DataFrame, plz: str) -> tuple[
+        list[ChargingStation], StationSearchPerformed]:
+
+        """
+            Searches the dataframe for stations by a given postal code.
+
+            :param merged_df:
+            :param postal_code: The postal code to search for (string, int, or float).
+            :return: A list of station dictionaries with name, status, and location.
+            """
+        try:
+
+            # Validate the postal code
+            if plz is None or not str(plz).strip().replace('.', '', 1).isdigit():
+                logging.warning(f"Invalid postal code provided: {plz}")
+                st.error("Invalid postal code provided.")
+
+            # Convert postal code to PostalCode
+            plz = int(float(PostalCode(plz)))
+
+            logging.info(f"Searching for postal code: {plz}")
+
+            # Filter the dataframe for the given postal code
+            filtered_df = merged_df[[merged_df["Postleitzahl"] == plz]]
+            logging.info(f"Filtered dataframe:\n{filtered_df}")
+
+            # Prepare the list of stations
+            stations = []
+            for _, row in filtered_df.iterrows():
+                try:
+                    lat = float(str(row["Breitengrad"]).replace(',', '.'))
+                    lon = float(str(row["Längengrad"]).replace(',', '.'))
+                    stations.append(ChargingStation(
+                        postal_code=row["PLZ"],
+                        latitude=lat,
+                        longitude=lon
+                    ))
+                except ValueError as e:
+                    logging.error(f"Error parsing location for row: {row}\n{e}")
+            search_summary = None
+            search_summary = StationSearchPerformed(
+                timestamp=pandas.Timestamp.now(),
+                postal_code=str(plz),
+                stations_found=len(stations)
+            )
+            return stations, search_summary
+
+        except Exception as e:
+            logging.error(f"An unexpected error occurred: {e}")
+            return []
+
+# def search_by_postal_code(plz, residents_df, stations_df):
+#     filtered_residents = filter_dataframe_by_postal_code(residents_df, plz)
+#     filtered_stations = filter_dataframe_by_postal_code(stations_df, plz)
+#
+#     display_search_results(plz, filtered_residents, filtered_stations)
+#     display_folium_map(filtered_stations)
+#
+#
+# def filter_dataframe_by_postal_code(df, plz):
+#     return df[df['PLZ'].astype(str) == plz]
+#
+#
+# def display_search_results(plz, filtered_residents, filtered_stations):
+#     if not filtered_stations.empty :
+#         st.write("Search Results:")
+#         st.write("Charging Stations Data:")
+#         st.write(filtered_stations)
+#     else:
+#         st.error(f"No data found for Postal Code: {plz}")
+#
+#
+# def display_folium_map(filtered_stations):
+#     if filtered_stations.empty:
+#         st.error("No charging station data available to display on the map.")
+#         return
+#
+#     # Initialize map centered on the first station
+#     first_station = filtered_stations.iloc[0]
+#     map_ = folium.Map(location=[first_station["Latitude"], first_station["Longitude"]], zoom_start=12)
+#
+#     # Color encoding based on charging station count
+#     for _, row in filtered_stations.iterrows():
+#         folium.CircleMarker(
+#             location=[row["Latitude"], row["Longitude"]],
+#             radius=10,
+#             color="green",
+#             fill=True,
+#             fill_opacity=0.7,
+#             popup=f"{row['Station Name']}: {row['PLZ']}",
+#         ).add_to(map_)
+#
+#     # Display the map in Streamlit
+#     folium_static(map_)
+#

@@ -1,8 +1,8 @@
 from typing import List
-from .models import ChargingStation
+from src.domain.models import ChargingStation
 
 class MockStationRepository:
-    def find_by_postal_code(self, postal_code: str) -> List[ChargingStation]:
+    def sample_data(self, postal_code: str) -> List[ChargingStation]:
         # Mock data for testing
         return [
             ChargingStation(
@@ -20,3 +20,7 @@ class MockStationRepository:
                 longitude=13.4050
             )
         ]
+
+class MockPopulationRepository:
+    def sample_population(self, postal_code: str):
+        return 100
