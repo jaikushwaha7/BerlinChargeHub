@@ -1,3 +1,4 @@
+```
 charging_stations/
 ├── src/
 │   ├── __init__.py
@@ -20,3 +21,4 @@ charging_stations/
     ├── 
     ├── test_station_search.py
     └── test_demand_indicator.py
+```
