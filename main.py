@@ -1,15 +1,24 @@
-currentWorkingDirectory = r"E:\Study\BHT\AdvancedSE\Assignment1\BerlinChargeHub"
-# currentWorkingDirectory = "/mount/src/berlingeoheatmap1/"
+import logging
+import os
+
+import pandas as pd
+
+from src.utils.database_utils import init_db
 
 # -----------------------------------------------------------------------------
-import os
-import logging
-from src.utils.data_loader import DataLoader
+
+currentWorkingDirectory = os.path.dirname(os.path.abspath(__file__))
+
 os.chdir(currentWorkingDirectory)
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
-    handlers=[logging.StreamHandler()]
+    handlers=[
+        logging.StreamHandler(),
+        logging.FileHandler(
+            os.path.join(currentWorkingDirectory, 'log', f"app_{pd.Timestamp.now().strftime('%Y%m%d_%H%M%S')}.log"),
+            mode='w')
+    ]
 )
 logging.info(f"Current working directory: {os.getcwd()}")
 
@@ -53,9 +62,10 @@ def main():
     # -----------------------------------------------------------------------------------------------------------------------
 
     # Running the streamlit function for the app
-    m1.make_streamlit_electric_Charging_resid(gdf_lstat3, gdf_residents2)
+    m1.create_electric_charging_residents_heatmap(gdf_lstat3, gdf_residents2)
 
 
 if __name__ == "__main__":
+    init_db()
     main()
 

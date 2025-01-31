@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="heatmap_app" uuid="e6bd8ce0-55a9-4731-b53d-70c8a9167296">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:E:\Study\BHT\AdvancedSE\Assignment1\BerlinChargeHub\heatmap_app.db</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+      <driver-properties>
+        <property name="admin" value="admin" />
+      </driver-properties>
+    </data-source>
+  </component>
+</project>

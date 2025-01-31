@@ -1,7 +1,7 @@
 import src.utils.logger as lg
 @lg.logger_decorator
 # Add demand calculation function
-class demand_calculate:
+class DemandCalculator:
     """
     Represents a demand calculation utility to estimate resource demand based on
     population, usage rate, and the number of available stations.

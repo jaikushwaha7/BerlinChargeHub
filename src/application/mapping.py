@@ -1,6 +1,48 @@
 import folium
+from folium.plugins import HeatMap
+import pandas as pd
+import streamlit as st
 from branca.colormap import LinearColormap
 import src.utils.logger as lg
+from src.utils.database_utils import verify_user
+
+#
+# def mapping_stations(df: pd.DataFrame, map_obj: folium.Map) -> folium.plugins.HeatMap:
+#     """Create heatmap layer for charging stations."""
+#     stations_data = df[['Latitude', 'Longitude', 'Number']].values.tolist()
+#     return folium.plugins.HeatMap(
+#         stations_data,
+#         radius=15,
+#         gradient={0.4: 'blue', 0.65: 'lime', 1: 'red'}
+#     )
+#
+#
+# def mapping_residents(df: pd.DataFrame, map_obj: folium.Map) -> folium.plugins.HeatMap:
+#     """Create heatmap layer for residents."""
+#     residents_data = df[['Latitude', 'Longitude', 'Einwohner']].values.tolist()
+#     return folium.plugins.HeatMap(
+#         residents_data,
+#         radius=15,
+#         gradient={0.4: 'green', 0.65: 'yellow', 1: 'red'}
+#     )
+#
+#
+# def mapping_demand(
+#         df: pd.DataFrame,
+#         map_obj: folium.Map,
+#         column: str,
+#         colors: list,
+#         tooltip_template: str
+# ) -> folium.plugins.HeatMap:
+#     """Create heatmap layer for demand."""
+#     demand_data = df[['Latitude', 'Longitude', column]].values.tolist()
+#     return folium.plugins.HeatMap(
+#         demand_data,
+#         radius=15,
+#         gradient={0.4: colors[0], 1: colors[1]}
+#     )
+#
+
 
 @lg.logger_decorator
 def mapping_residents(df_population, folium_map):

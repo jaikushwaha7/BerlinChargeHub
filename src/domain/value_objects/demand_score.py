@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from src.domain.exceptions.exceptions import InvalidDemandScoreException
+from src.exceptions.exceptions import InvalidDemandScoreException
 
 
 @dataclass(frozen=True)

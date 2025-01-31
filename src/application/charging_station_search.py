@@ -1,16 +1,18 @@
 
+import logging
+
 import pandas
 import streamlit as st
 
-import logging
-from src.domain.value_objects.postal_code import PostalCode
-from src.domain.models.charging_station import ChargingStation
-from src.domain.events.station_search_performed import StationSearchPerformed
 import src.utils.logger as lg
+from src.domain.events.station_search_performed import StationSearchPerformed
+from src.domain.models.charging_station import ChargingStation
+from src.domain.value_objects.postal_code import PostalCode
+
 
 @lg.logger_decorator
 class SearchService:
-    def search_by_postal_code(self, merged_df: pandas.DataFrame, plz: str) -> tuple[
+    def search_by_postal_code( merged_df: pandas.DataFrame, plz: str) -> tuple[
         list[ChargingStation], StationSearchPerformed]:
 
         """
@@ -28,14 +30,29 @@ class SearchService:
                 st.error("Invalid postal code provided.")
 
             # Convert postal code to PostalCode
-            plz = int(float(PostalCode(plz)))
+            plz = int(float(PostalCode(plz).value))
 
             logging.info(f"Searching for postal code: {plz}")
+            print(f"Postal Code (plz): {plz}, Type: {type(plz)}")
+
+            merged_df = merged_df.astype({"PLZ": int})
+            logging.info(f"merged_df: \n{merged_df.head()}")
+
+
+            print(f"Looking for PLZ: {plz}")
+            print(merged_df["PLZ"].unique())
+            #merged_df["PLZ"] = merged_df["PLZ"].astype(str).str.strip().astype(int)
 
             # Filter the dataframe for the given postal code
-            filtered_df = merged_df[[merged_df["Postleitzahl"] == plz]]
-            logging.info(f"Filtered dataframe:\n{filtered_df}")
-
+            filtered_df = merged_df[merged_df["PLZ"] == plz]
+            logging.info(f"Filtered dataframe:\n{filtered_df.head()}")
+            if filtered_df.empty:
+                logging.warning(f"No locations found for postal code: {plz}")
+                return [], StationSearchPerformed(
+                    timestamp=pandas.Timestamp.now(),
+                    postal_code=str(plz),
+                    stations_found=0
+                )
             # Prepare the list of stations
             stations = []
             for _, row in filtered_df.iterrows():
@@ -53,7 +70,7 @@ class SearchService:
             search_summary = StationSearchPerformed(
                 timestamp=pandas.Timestamp.now(),
                 postal_code=str(plz),
-                stations_found=len(stations)
+                stations_found=int(filtered_df['Number'].iloc[0])
             )
             return stations, search_summary
 

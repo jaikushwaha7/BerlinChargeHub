@@ -12,3 +12,4 @@ dash
 streamlit
 streamlit_folium
 Folium
+sqlite3

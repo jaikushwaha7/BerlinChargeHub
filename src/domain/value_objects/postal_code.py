@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from src.domain.exceptions.exceptions import InvalidPostalCodeException
+from src.exceptions.exceptions import InvalidPostalCodeException
 @dataclass
 class PostalCode:
     """

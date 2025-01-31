@@ -10,6 +10,6 @@ class DataLoader:
         for _, row in data.iterrows():
             location = Location(row['latitude'], row['longitude'])
             # available ports equivalent to number of charging stations in a postal code
-            station = ChargingStation(row['Postleitzahl'], location, row['Anzahl Ladepunkte'])
+            station = ChargingStation(row['Postleitzahl'], location=row['Anzahl Ladepunkte'])
             stations.append(station)
         return stations

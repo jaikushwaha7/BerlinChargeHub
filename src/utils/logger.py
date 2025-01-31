@@ -9,18 +9,20 @@ os.makedirs(log_folder, exist_ok=True)
 log_file = os.path.join(log_folder, "app.log")
 
 logging.basicConfig(
-    filename=log_file,
-    filemode="a",
-    format="%(asctime)s - %(levelname)s - %(message)s",
     level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.StreamHandler(),
+        logging.FileHandler(os.path.join('log', 'app.log'), mode='w')
+    ]
 )
 def logger_decorator(func):
-    '''
+    """
     Creates a logger decorator which logs information about function calls within the codebase
     Input: A function
     Output: A wrapper function
     Postconditions: None
-    '''
+    """
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
         # Log function call details
