@@ -1,21 +1,17 @@
-from datetime import datetime
 import logging
-from dbm import sqlite3
 
 import folium
 import geopandas as gpd
-from pandas import merge
-from folium.plugins import HeatMap
 import streamlit as st
-# from branca.colormap import LinearColormap
+from pandas import merge
 from streamlit_folium import folium_static
 
 import src.infrastructure.core.HelperTools as ht
+from src.application.chaging_station_rate import ChargeStationRating
 from src.application.charging_station_search import SearchService
 from src.application.demand_calculator import DemandCalculator
-from src.application.login import handle_login  # Import the login function
 from src.application.mapping import mapping_residents, mapping_stations, mapping_demand
-from src.exceptions.exceptions import LoginException, SearchException
+from src.exceptions.exceptions import SearchException
 from src.utils import logger as lg
 from src.utils.database_utils import verify_user
 
@@ -127,7 +123,8 @@ def preprop_resid(dfr, dfg, pdict):
     logger.info("Starting preprop_resid function.")
     dframe                  = dfr.copy()
     df_geo                  = dfg.copy()
-    logger.debug(f"Input DataFrame shape: {dframe.shape}, Geo DataFrame shape: {df_geo.shape}")
+    
+    logger.debug(f"Input DataFrame in preprop_resid shape: {dframe.shape}, Geo DataFrame shape: {df_geo.shape}")
 
     dframe2               	= dframe.loc[:,['plz', 'einwohner', 'lat', 'lon']]
     dframe2.rename(columns  = {"plz": "PLZ", "einwohner": "Einwohner", "lat": "Breitengrad", "lon": "Längengrad"}, inplace = True)
@@ -164,6 +161,7 @@ def merge_geo_dataframes(df_charging_stations, df_population):
     # Merge resident and charging station data
     df_charging_stations['PLZ'] = df_charging_stations['PLZ'].astype(int)
     logger.debug(f"Converted PLZ column to int in charging stations DataFrame. Shape: {df_charging_stations.shape}")
+    logger.debug(f"First 5 rows of the df_charging_stations DataFrame:\n{df_charging_stations.head(5)}")
     df_charging_stations = df_charging_stations.iloc[:, 0:2]
     df_merged = df_population.merge(df_charging_stations, on='PLZ', how='left')
     logger.info(f"Merged population and charging stations DataFrames. Shape: {df_merged.shape}")
@@ -179,7 +177,7 @@ def merge_geo_dataframes(df_charging_stations, df_population):
 
 # -----------------------------------------------------------------------------
 @lg.logger_decorator
-def create_electric_charging_residents_heatmap(df_charging_stations, df_population):
+def create_electric_charging_residents_heatmap(df_charging_stations, df_population, df_lstat2):
     """
     Generates a Streamlit app for visualizing heatmaps of charging stations, residents, and demand.
     """
@@ -189,7 +187,7 @@ def create_electric_charging_residents_heatmap(df_charging_stations, df_populati
 
     """Main application function."""
     st.title("Electric Charging Stations and Residents Heatmap")
-    df_merged = merge(df_charging_stations, df_population, on='PLZ',)
+    df_merged = merge_geo_dataframes(df_charging_stations, df_population)
     # Initialize session state
     if "logged_in" not in st.session_state:
         st.session_state.logged_in = False
@@ -227,8 +225,7 @@ def create_electric_charging_residents_heatmap(df_charging_stations, df_populati
         try:
             result = SearchService.search_by_postal_code(
                 df_merged,
-                search_plz
-            )
+                search_plz)
             logging.info(f"result shape: {result}\n")
             if result[0] ==[]:
                 st.error("No results found.")
@@ -249,35 +246,22 @@ def create_electric_charging_residents_heatmap(df_charging_stations, df_populati
     )
     # Handle layer selection
     if layer_selection == "Rate":
-        with st.form("rating_form"):
-            selected_station = st.text_input("Station ID or Name:")
-            rating = st.slider("Rating (1-5):", 1, 5, 3)
-            submit_rating = st.form_submit_button("Submit Rating")
-
-            if submit_rating:
-                conn = sqlite3.connect('heatmap_app.db')
-                c = conn.cursor()
-                c.execute(
-                    "INSERT INTO station_ratings VALUES (?, ?, ?, ?)",
-                    (selected_station, st.session_state.username, rating, datetime.now())
-                )
-                conn.commit()
-                conn.close()
-                st.success(f"Rating submitted for station {selected_station}")
+        rating = ChargeStationRating()
+        rating.charge_station_rating(df_lstat2, df_merged)
     else:
         color_map = None
 
         if layer_selection == "Residents":
-            color_map,folium_map = mapping_residents(df_population, folium_map)
+            color_map, folium_map = mapping_residents(df_population, folium_map)
         elif layer_selection == "Charging_Stations":
-            color_map,folium_map = mapping_stations(df_charging_stations, folium_map)
+            color_map, folium_map = mapping_stations(df_charging_stations, folium_map)
         elif layer_selection == "Demand":
-            df_charging_stations['Demand'] = (merge(df_charging_stations, df_population, on='PLZ',).apply
-                (      lambda row: DemandCalculator.calculate_demand(
-                       row['Einwohner'], 50, row['Number']
-                ),
-                axis=1
-            ))
+            df_charging_stations['Demand'] = (merge(df_charging_stations, df_population, on='PLZ', ).apply
+                                              (lambda row: DemandCalculator.calculate_demand(
+                                                  row['Einwohner'], 50, row['Number']
+                                              ),
+                                               axis=1
+                                               ))
             color_map, folium_map = mapping_demand(
                 df_charging_stations,
                 folium_map,
@@ -292,104 +276,4 @@ def create_electric_charging_residents_heatmap(df_charging_stations, df_populati
     # Display map
     folium_static(folium_map, width=DEFAULT_MAP_WIDTH, height=DEFAULT_MAP_HEIGHT)
 
-# Function renamed to a more Pythonic style
-# @lg.logger_decorator
-# def create_electric_charging_residents_heatmap(df_charging_stations, df_population):
-#     """
-#     Generates a Streamlit app for visualizing heatmaps of charging stations, residents, and demand.
-#     """
-#     # Constants for defaults
-#     DEFAULT_MAP_LOCATION = [52.52, 13.40]  # Berlin coordinates
-#     DEFAULT_MAP_WIDTH, DEFAULT_MAP_HEIGHT = 800, 600
-#
-#     """Main application function."""
-#     st.title("Electric Charging Stations and Residents Heatmap")
-#
-#     # Initialize session state
-#     if "logged_in" not in st.session_state:
-#         st.session_state.logged_in = False
-#     if "username" not in st.session_state:
-#         st.session_state.username = None
-#
-#     # Login section
-#     if not st.session_state.logged_in:
-#         with st.form("login_form"):
-#             username = st.text_input("Username")
-#             password = st.text_input("Password", type="password")
-#             submit = st.form_submit_button("Login")
-#
-#             if submit:
-#                 if verify_user(username, password):
-#                     st.session_state.logged_in = True
-#                     st.session_state.username = username
-#                     st.success("Login successful!")
-#                     st.experimental_rerun()
-#                 else:
-#                     st.error("Invalid username or password")
-#         st.stop()
-#     def initialize_session():
-#         """Initializes session states for login."""
-#         if "logged_in" not in st.session_state:
-#             st.session_state.logged_in = False
-#
-#     def login_section():
-#         """Handles user login logic."""
-#         if st.button("Click here to Login", key="button1"):
-#             try:
-#                 if handle_login():
-#                     st.success("Login successful!")
-#             except LoginException:
-#                 st.error("Login failed. Please try again.")
-#                 st.session_state.logged_in = False
-#                 st.stop()
-#         elif not st.session_state.logged_in:
-#             st.info("Please login to continue.")
-#             st.stop()
-#
-#     def search_by_postal_code(df):
-#         """Adds postal code search functionality."""
-#         search_plz = st.text_input("Search by Postal Code:")
-#         if st.button("Search", key="button3"):
-#             SearchService.search_by_postal_code(df, search_plz)
-#
-#     def add_folium_layer(selection, map_obj):
-#         """Adds the selected layer to the Folium map."""
-#         if selection == "Rate":
-#             selected_station = st.text_input("Station ID or Name to Rate:")
-#             rating = st.slider("Rate the Charging Station (1-5):", 1, 5, 3)
-#             if st.button("Submit Rating", key="button4"):
-#                 st.success(f"Thank you for rating Station {selected_station} with a {rating}!")
-#         elif selection == "Residents":
-#             return mapping_residents(df_population, map_obj)
-#         elif selection == "Charging_Stations":
-#             return mapping_stations(df_charging_stations, map_obj)
-#         elif selection == "Demand":
-#             # Adding demand calculation to the dataframe
-#             df_charging_stations['Demand'] = df_charging_stations.apply(
-#                 lambda row: demand_calculate.calculate_demand(row['Einwohner'], 50, row['Number']), axis=1
-#             )
-#             return mapping_demand(
-#                 df_charging_stations,
-#                 map_obj,
-#                 column='Demand',
-#                 colors=['yellow', 'red'],
-#                 tooltip_template="PLZ: {PLZ}, Demand: {Demand:.2f}"
-#             )
-#     #--------------------------------------------------------------------
-#     # Main app logic
-#     st.title("Heatmaps: Electric Charging Stations and Residents")
-#     initialize_session()
-#     login_section()
-#
-#     if st.session_state.logged_in and st.button("Proceed", key="button2"):
-#         search_by_postal_code(merge_geo_dataframes(df_charging_stations, df_population))
-#
-#     # Heatmap section
-#     layer_selection = st.radio("Select Layer", ("Residents", "Charging_Stations", "Demand", "Rate"))
-#     folium_map = folium.Map(location=DEFAULT_MAP_LOCATION, zoom_start=10)
-#     color_map = add_folium_layer(layer_selection, folium_map)
-#
-#     if color_map:
-#         color_map.add_to(folium_map)
-#
-#     folium_static(folium_map, width=DEFAULT_MAP_WIDTH, height=DEFAULT_MAP_HEIGHT)
+

@@ -17,7 +17,7 @@ def init_db():
 
     # Create ratings table
     c.execute('''
-        CREATE TABLE IF NOT EXISTS station_ratings
+        CREATE TABLE IF NOT EXISTS RATINGS
         (station_id TEXT,
          username TEXT,
          rating INTEGER,

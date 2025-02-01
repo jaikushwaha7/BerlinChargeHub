@@ -95,3 +95,4 @@ build/
 Thumbs.db
 desktop.ini
 *.~lock.*
+*.log

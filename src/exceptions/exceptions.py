@@ -24,5 +24,8 @@ class LoginException(Exception):
 class SearchException(Exception):
     """
     Represents a custom exception that occurs during search operations.
+    This can include invalid search requests or other search-related issues.
     """
-    pass
+    def __str__(self):
+        return "A search-related exception occurred."
+    

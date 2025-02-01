@@ -1,8 +1,10 @@
 
 import logging
 
+import folium
 import pandas
 import streamlit as st
+from streamlit_folium import folium_static
 
 import src.utils.logger as lg
 from src.domain.events.station_search_performed import StationSearchPerformed
@@ -12,8 +14,9 @@ from src.domain.value_objects.postal_code import PostalCode
 
 @lg.logger_decorator
 class SearchService:
-    def search_by_postal_code( merged_df: pandas.DataFrame, plz: str) -> tuple[
+    def search_by_postal_code(merged_df: pandas.DataFrame, plz: str) -> tuple[
         list[ChargingStation], StationSearchPerformed]:
+        logging.info("search_by_postal_code method called.")
 
         """
             Searches the dataframe for stations by a given postal code.
@@ -24,7 +27,9 @@ class SearchService:
             """
         try:
 
+            logging.info("Starting postal code validation.")
             # Validate the postal code
+            logging.info("Finished postal code validation.")
             if plz is None or not str(plz).strip().replace('.', '', 1).isdigit():
                 logging.warning(f"Invalid postal code provided: {plz}")
                 st.error("Invalid postal code provided.")
@@ -38,12 +43,12 @@ class SearchService:
             merged_df = merged_df.astype({"PLZ": int})
             logging.info(f"merged_df: \n{merged_df.head()}")
 
-
             print(f"Looking for PLZ: {plz}")
             print(merged_df["PLZ"].unique())
-            #merged_df["PLZ"] = merged_df["PLZ"].astype(str).str.strip().astype(int)
 
+            logging.info("Filtering the dataframe based on the provided postal code.")
             # Filter the dataframe for the given postal code
+            logging.info("Finished filtering the dataframe.")
             filtered_df = merged_df[merged_df["PLZ"] == plz]
             logging.info(f"Filtered dataframe:\n{filtered_df.head()}")
             if filtered_df.empty:
@@ -53,6 +58,8 @@ class SearchService:
                     postal_code=str(plz),
                     stations_found=0
                 )
+
+            logging.info("Converting filtered station data to ChargingStation objects.")
             # Prepare the list of stations
             stations = []
             for _, row in filtered_df.iterrows():
@@ -72,11 +79,34 @@ class SearchService:
                 postal_code=str(plz),
                 stations_found=int(filtered_df['Number'].iloc[0])
             )
+            
             return stations, search_summary
 
         except Exception as e:
             logging.error(f"An unexpected error occurred: {e}")
             return []
+
+
+# def display_folium_map(filtered_stations, folium_static):
+#
+#     logging.info(f"display_folium_map called with {len(filtered_stations)} stations to display.")
+#     if filtered_stations.empty:
+#         st.error("No charging station data available to display on the map.")
+#         return
+#
+#     # Initialize map centered on the first station
+#     first_station = filtered_stations.iloc[0]
+#
+#     for _, station in first_station.iterrows():
+#         folium.Marker(
+#             location=[station["Breitengrad"], station["Längengrad"]],
+#             popup=f'Station at Postal code: {station["PLZ"]}',
+#             icon=folium.Icon(icon='cloud')
+#         ).add_to(folium_static)
+#
+#     # Display the map in Streamlit
+#     return folium_static
+#
 
 # def search_by_postal_code(plz, residents_df, stations_df):
 #     filtered_residents = filter_dataframe_by_postal_code(residents_df, plz)
@@ -98,27 +128,4 @@ class SearchService:
 #     else:
 #         st.error(f"No data found for Postal Code: {plz}")
 #
-#
-# def display_folium_map(filtered_stations):
-#     if filtered_stations.empty:
-#         st.error("No charging station data available to display on the map.")
-#         return
-#
-#     # Initialize map centered on the first station
-#     first_station = filtered_stations.iloc[0]
-#     map_ = folium.Map(location=[first_station["Latitude"], first_station["Longitude"]], zoom_start=12)
-#
-#     # Color encoding based on charging station count
-#     for _, row in filtered_stations.iterrows():
-#         folium.CircleMarker(
-#             location=[row["Latitude"], row["Longitude"]],
-#             radius=10,
-#             color="green",
-#             fill=True,
-#             fill_opacity=0.7,
-#             popup=f"{row['Station Name']}: {row['PLZ']}",
-#         ).add_to(map_)
-#
-#     # Display the map in Streamlit
-#     folium_static(map_)
 #

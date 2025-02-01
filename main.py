@@ -62,7 +62,7 @@ def main():
     # -----------------------------------------------------------------------------------------------------------------------
 
     # Running the streamlit function for the app
-    m1.create_electric_charging_residents_heatmap(gdf_lstat3, gdf_residents2)
+    m1.create_electric_charging_residents_heatmap(gdf_lstat3, gdf_residents2, df_lstat )
 
 
 if __name__ == "__main__":
