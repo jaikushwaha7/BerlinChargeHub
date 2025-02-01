@@ -10,15 +10,20 @@ class DemandCalculator:
     and to retrieve the formula used for calculation in LaTeX format.
 
     """
+
     def calculate_demand(population, usage_rate, number_of_stations):
-            if population <= 0:
-                raise ValueError("Population must be a positive value.")
-            if usage_rate <= 0:
-                raise ValueError("Usage rate must be a positive value.")
-            if number_of_stations < 1:
-                raise ValueError("Number of stations must be at least 1.")
-            return (population * usage_rate / 100) / number_of_stations
+        if population <= 0:
+            raise ValueError("Population must be a positive value.")
+        if usage_rate <= 0:
+            raise ValueError("Usage rate must be a positive value.")
+        if number_of_stations < 1:
+            raise ValueError("Number of stations must be at least 1.")
+
+        demand = (population * usage_rate / 100) / number_of_stations
+
+        return demand
 
 
-    def demand_formula_latex(self):
+
+    def demand_formula_latex(self) -> object:
             return r"\frac{{\text{{population}} \cdot \text{{usage\_rate}}}}{{100 \cdot \text{{number\_of\_stations}}}}"

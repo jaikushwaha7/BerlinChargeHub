@@ -256,12 +256,15 @@ def create_electric_charging_residents_heatmap(df_charging_stations, df_populati
         elif layer_selection == "Charging_Stations":
             color_map, folium_map = mapping_stations(df_charging_stations, folium_map)
         elif layer_selection == "Demand":
+            st.info("Demand Score formula")
+
             df_charging_stations['Demand'] = (merge(df_charging_stations, df_population, on='PLZ', ).apply
                                               (lambda row: DemandCalculator.calculate_demand(
                                                   row['Einwohner'], 50, row['Number']
                                               ),
                                                axis=1
                                                ))
+            DemandCalculator.demand_formula_latex()
             color_map, folium_map = mapping_demand(
                 df_charging_stations,
                 folium_map,
