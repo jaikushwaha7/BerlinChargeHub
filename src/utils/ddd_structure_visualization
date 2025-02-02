@@ -1,0 +1,18 @@
+digraph {
+	rankdir=LR
+	"Residents Context" [color=lightblue shape=box style=filled]
+	"Charging Stations Context" [color=lightblue shape=box style=filled]
+	"Demand Context" [color=lightblue shape=box style=filled]
+	"Population Data Preprocessing" [color=lightgrey shape=ellipse style=filled]
+	"Charging Station Data Preprocessing" [color=lightgrey shape=ellipse style=filled]
+	"Geospatial Mapping" [color=lightgrey shape=ellipse style=filled]
+	"Demand Calculation" [color=lightgrey shape=ellipse style=filled]
+	"Heatmap Generation" [color=lightgrey shape=ellipse style=filled]
+	"Population Data Preprocessing" -> "Geospatial Mapping"
+	"Charging Station Data Preprocessing" -> "Geospatial Mapping"
+	"Geospatial Mapping" -> "Demand Calculation"
+	"Demand Calculation" -> "Heatmap Generation"
+	"Population Data Preprocessing" -> "Residents Context"
+	"Charging Station Data Preprocessing" -> "Charging Stations Context"
+	"Heatmap Generation" -> "Demand Context"
+}

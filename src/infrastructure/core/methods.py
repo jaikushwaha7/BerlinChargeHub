@@ -240,7 +240,7 @@ def create_electric_charging_residents_heatmap(df_charging_stations, df_populati
             if result[0] ==[]:
                 st.error("No results found.")
             else:
-                st.info(f"Number of results found at Postal code {result[1].postal_code} are {result[1].stations_found}")
+                st.info(f"Number of Charging Station found at Postal code {result[1].postal_code} are {result[1].stations_found}")
         except SearchException as e:
             st.error(str(e))
 
