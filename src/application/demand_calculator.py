@@ -1,4 +1,8 @@
+from narwhals import DataFrame
+
 import src.utils.logger as lg
+
+
 @lg.logger_decorator
 # Add demand calculation function
 class DemandCalculator:
@@ -23,7 +27,8 @@ class DemandCalculator:
 
         return demand
 
+    def demand_formula_latex(self=None) -> object:
+        return r"\frac{{\text{{population}} \cdot \text{{usage\_rate}}}}{{100 \cdot \text{{number\_of\_stations}}}}"
 
-
-    def demand_formula_latex(self) -> object:
-            return r"\frac{{\text{{population}} \cdot \text{{usage\_rate}}}}{{100 \cdot \text{{number\_of\_stations}}}}"
+    def __str__(self):
+        return self.demand_formula_latex()

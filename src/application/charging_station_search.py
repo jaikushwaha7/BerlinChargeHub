@@ -14,7 +14,7 @@ from src.domain.value_objects.postal_code import PostalCode
 
 @lg.logger_decorator
 class SearchService:
-    def search_by_postal_code(merged_df: pandas.DataFrame, plz: str) -> tuple[
+    def search_by_postal_code(self, merged_df: pandas.DataFrame, plz: str) -> tuple[
         list[ChargingStation], StationSearchPerformed]:
         logging.info("search_by_postal_code method called.")
 
@@ -38,13 +38,9 @@ class SearchService:
             plz = int(float(PostalCode(plz).value))
 
             logging.info(f"Searching for postal code: {plz}")
-            print(f"Postal Code (plz): {plz}, Type: {type(plz)}")
 
             merged_df = merged_df.astype({"PLZ": int})
             logging.info(f"merged_df: \n{merged_df.head()}")
-
-            print(f"Looking for PLZ: {plz}")
-            print(merged_df["PLZ"].unique())
 
             logging.info("Filtering the dataframe based on the provided postal code.")
             # Filter the dataframe for the given postal code

@@ -39,7 +39,7 @@ class TestHandleLogin(TestCase):
         # Assert
         mock_text_input.assert_any_call("Username:", "")
         mock_text_input.assert_any_call("Password:", "", type="password")
-        mock_button.assert_called_once_with("Login")
+        mock_button.assert_called_once_with("Login to dashboard")
         mock_check_credentials.assert_called_once_with("test_user", "wrong_password")
         self.assertFalse(result)
 
@@ -56,5 +56,5 @@ class TestHandleLogin(TestCase):
         # Assert
         mock_text_input.assert_any_call("Username:", "")
         mock_text_input.assert_any_call("Password:", "", type="password")
-        mock_button.assert_called_once_with("Login")
+        mock_button.assert_called_once_with("Login to dashboard")
         self.assertTrue(result)

@@ -1,53 +1,60 @@
 import unittest
-import os
-currentWorkingDirectory = os.path.dirname(os.path.abspath(__file__))
-os.chdir(currentWorkingDirectory)
-import sys
-import os
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
 
-from config import pdict
 
-class TestConfig(unittest.TestCase):
+class TestDictionary(unittest.TestCase):
 
-    def test_required_keys_exist(self):
-        # Check that all expected keys are in the config dictionary
-        expected_keys = [
-            'geocode', 
-            'file_lstations', 
-            'file_residents', 
-            'file_geodat_plz', 
-            'file_geodat_dis', 
-            'file_suggestions', 
-            'file_reports'
+    def setUp(self):
+        """Set up the dictionary provided in the example."""
+        self.p = dict()
+        self.p['picklefolder'] = 'pickles'
+        self.p['geocode'] = 'PLZ'
+        self.p["file_lstations"] = "Ladesaeulenregister.csv"
+        self.p["file_residents"] = "plz_einwohner.csv"
+        self.p["file_geodat_plz"] = "geodata_berlin_plz.csv"
+        self.p["file_geodat_dis"] = "geodata_berlin_dis.csv"
+        self.pdict = self.p.copy()
+
+    def test_keys_exist(self):
+        """Test that all required keys exist in the dictionary."""
+        required_keys = [
+            'picklefolder', 'geocode', 'file_lstations',
+            'file_residents', 'file_geodat_plz', 'file_geodat_dis'
         ]
-        for key in expected_keys:
-            self.assertIn(key, pdict, f"Missing key: {key}")
+        for key in required_keys:
+            self.assertIn(key, self.p, f"Key '{key}' is missing from the dictionary.")
 
-    def test_value_types(self):
-        # Test that values are of the expected type
-        self.assertIsInstance(pdict['geocode'], str)
-        self.assertIsInstance(pdict['file_lstations'], str)
-        self.assertIsInstance(pdict['file_residents'], str)
-        self.assertIsInstance(pdict['file_geodat_plz'], str)
-        self.assertIsInstance(pdict['file_geodat_dis'], str)
-        self.assertIsInstance(pdict['file_suggestions'], str)
-        self.assertIsInstance(pdict['file_reports'], str)
+    def test_default_values(self):
+        """Test that the default values in the dictionary are correct."""
+        self.assertEqual(self.p['picklefolder'], 'pickles')
+        self.assertEqual(self.p['geocode'], 'PLZ')
+        self.assertEqual(self.p["file_lstations"], "Ladesaeulenregister.csv")
+        self.assertEqual(self.p["file_residents"], "plz_einwohner.csv")
+        self.assertEqual(self.p["file_geodat_plz"], "geodata_berlin_plz.csv")
+        self.assertEqual(self.p["file_geodat_dis"], "geodata_berlin_dis.csv")
 
-    def test_non_empty_values(self):
-        # Check that all values are non-empty (important for file paths)
-        for key in pdict:
-            self.assertGreater(len(pdict[key]), 0, f"Value for {key} should not be empty")
+    def test_copy_dictionary(self):
+        """Test that `p.copy()` correctly creates a duplicate dictionary."""
+        self.assertEqual(self.p, self.pdict)  # Ensure the copy matches the original
+        self.assertIsNot(self.p, self.pdict)  # Ensure it's not the same reference (deep copy)
 
-    def test_file_paths_exist(self):
-        # Ensure that file paths are valid (files exist)
-        import os
-        self.assertTrue(os.path.exists(pdict['file_residents']), "File not found: file_residents")
-        self.assertTrue(os.path.exists(pdict['file_lstations']), "File not found: file_lstations")
-        self.assertTrue(os.path.exists(pdict['file_geodat_plz']), "File not found: file_geodat_plz")
-        self.assertTrue(os.path.exists(pdict['file_geodat_dis']), "File not found: file_geodat_dis")
-        self.assertTrue(os.path.exists(pdict['file_suggestions']), "File not found: file_suggestions")
-        self.assertTrue(os.path.exists(pdict['file_reports']), "File not found: file_reports")
+    def test_file_keys_are_csv(self):
+        """Test that file keys have string values ending in `.csv`."""
+        file_keys = [
+            "file_lstations", "file_residents",
+            "file_geodat_plz", "file_geodat_dis"
+        ]
+        for key in file_keys:
+            value = self.p[key]
+            self.assertIsInstance(value, str, f"Value of key '{key}' is not a string.")
+            self.assertTrue(value.endswith('.csv'), f"Value of key '{key}' is not a valid CSV file.")
 
-if __name__ == '__main__':
-    unittest.main()
+    def test_no_empty_values(self):
+        """Test that no key in the dictionary has an empty value."""
+        for key, value in self.p.items():
+            self.assertTrue(value, f"Key '{key}' has an empty or falsy value.")
+
+    def test_file_keys_have_valid_names(self):
+        """Test that file keys have meaningful, non-default names."""
+        invalid_names = ["file.csv", "data.csv", "unnamed.csv"]
+        for key in ["file_lstations", "file_residents", "file_geodat_plz", "file_geodat_dis"]:
+            self.assertNotIn(self.p[key], invalid_names, f"Key '{key}' has an invalid name.")

@@ -1,6 +1,13 @@
-def test_demand_score():
+from src.domain.value_objects.demand_score import DemandScore
+from unittest import TestCase
 
+class TestDemandScore(TestCase):
+    def __init__(self, *args, **kwargs):
+        super(TestDemandScore, self).__init__(*args, **kwargs)
+    def test_demand_score_is_number(self, demand_score = DemandScore):
 
-    demand = -5  # Example of a value not in range
-    assert demand >= 0 and demand <= 100, "Demand is not in the valid range (0-100)"
-    assert False
+        self.assertIsInstance(demand_score, (int, float), "demand_score must be a number")
+
+    def test_demand_score_not_infinite(self,demand_score = DemandScore):
+        self.assertNotEqual(demand_score, float('inf'), "demand_score must not be positive infinity")
+        self.assertNotEqual(demand_score, float('-inf'), "demand_score must not be negative infinity")

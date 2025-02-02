@@ -179,7 +179,16 @@ def merge_geo_dataframes(df_charging_stations, df_population):
 @lg.logger_decorator
 def create_electric_charging_residents_heatmap(df_charging_stations, df_population, df_lstat2):
     """
-    Generates a Streamlit app for visualizing heatmaps of charging stations, residents, and demand.
+    Generates an interactive heatmap application to display electric charging stations
+    and residential density. The function integrates user authentication, a search
+    functionality for postal code-based filtering, and rendering of various map layers
+    to visualize residents, charging stations, demand, or rates.
+
+    This function serves as the main logic for the Streamlit app and incorporates session
+    state to manage user login/logout functionality. The map layer capabilities include
+    dynamic rendering to support diverse data visualization needs.
+
+
     """
     # Constants for defaults
     DEFAULT_MAP_LOCATION = [52.52, 13.40]  # Berlin coordinates
@@ -223,7 +232,8 @@ def create_electric_charging_residents_heatmap(df_charging_stations, df_populati
     search_plz = st.text_input("Search by Postal Code:")
     if st.button("Search", key="search"):
         try:
-            result = SearchService.search_by_postal_code(
+            search = SearchService()
+            result = search.search_by_postal_code(
                 df_merged,
                 search_plz)
             logging.info(f"result shape: {result}\n")
@@ -235,9 +245,12 @@ def create_electric_charging_residents_heatmap(df_charging_stations, df_populati
             st.error(str(e))
 
     # Layer selection and map
-    layer_selection = st.radio(
-        "Select Use Case to Map",
-        ("Residents", "Charging_Stations", "Demand", "Rate")
+    st.sidebar.header("🚀 Service Options")
+    st.sidebar.write("")
+
+    layer_selection = st.sidebar.radio(
+        "Select Use Case to Map or rate:",
+        ("💡Residents", "Charging Stations", "Demand", "Rate")
     )
 
     folium_map = folium.Map(
@@ -256,15 +269,18 @@ def create_electric_charging_residents_heatmap(df_charging_stations, df_populati
         elif layer_selection == "Charging_Stations":
             color_map, folium_map = mapping_stations(df_charging_stations, folium_map)
         elif layer_selection == "Demand":
+            formula_latex = DemandCalculator.demand_formula_latex()
             st.info("Demand Score formula")
+            st.latex(formula_latex)
 
+            # Calculating Demand for all postal codes
             df_charging_stations['Demand'] = (merge(df_charging_stations, df_population, on='PLZ', ).apply
                                               (lambda row: DemandCalculator.calculate_demand(
                                                   row['Einwohner'], 50, row['Number']
                                               ),
                                                axis=1
                                                ))
-            DemandCalculator.demand_formula_latex()
+
             color_map, folium_map = mapping_demand(
                 df_charging_stations,
                 folium_map,

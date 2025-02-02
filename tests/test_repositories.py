@@ -13,8 +13,7 @@ class TestSampleData(unittest.TestCase):
         # Arrange
         repository = MockStationRepository()
         mock_charging_station.return_value = ChargingStation(
-            id="1",
-            name="Test Station 1",
+            
             postal_code="10115",
             latitude=52.5200,
             longitude=13.4050
