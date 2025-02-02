@@ -1,8 +1,11 @@
 import folium
 from branca.colormap import LinearColormap
 import src.utils.logger as lg
-
-@lg.logger_decorator
+import streamlit as st
+import logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
+#@lg.logger_decorator
 def mapping_residents(df_population, folium_map):
     """
     Maps residents' population data onto a given Folium map using color gradients to represent
@@ -12,6 +15,7 @@ def mapping_residents(df_population, folium_map):
 
     """
     # Create a color map for Residents
+
     color_map = LinearColormap(colors=['#4C6CAF','#A5BAE6','#EAEF00', '#BEC123','#C98787', '#D60000'],
                                vmin=df_population['Einwohner'].min(),
                                vmax=df_population['Einwohner'].max())

@@ -4,7 +4,7 @@ import os
 
 
 # Configure logging to save logs in the "logs" folder
-log_folder = "logs"
+log_folder = "log"
 os.makedirs(log_folder, exist_ok=True)
 log_file = os.path.join(log_folder, "app.log")
 

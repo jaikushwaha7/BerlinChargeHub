@@ -250,23 +250,25 @@ def create_electric_charging_residents_heatmap(df_charging_stations, df_populati
 
     layer_selection = st.sidebar.radio(
         "Select Use Case to Map or rate:",
-        ("💡Residents", "Charging Stations", "Demand", "Rate")
+        ("Residents", "Charging Stations", "Demand", "Rate")
     )
 
     folium_map = folium.Map(
         location=DEFAULT_MAP_LOCATION,
         zoom_start=10
     )
+
     # Handle layer selection
     if layer_selection == "Rate":
         rating = ChargeStationRating()
         rating.charge_station_rating(df_lstat2, df_merged)
     else:
+
         color_map = None
 
         if layer_selection == "Residents":
             color_map, folium_map = mapping_residents(df_population, folium_map)
-        elif layer_selection == "Charging_Stations":
+        elif layer_selection == "Charging Stations":
             color_map, folium_map = mapping_stations(df_charging_stations, folium_map)
         elif layer_selection == "Demand":
             formula_latex = DemandCalculator.demand_formula_latex()
