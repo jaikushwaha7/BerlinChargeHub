@@ -1,0 +1,98 @@
+# Byte-compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+.venv/
+env/
+ENV/
+venv/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Logs
+*.log
+*.out
+*.err
+*.txt
+
+# Cache and temporary files
+*.swp
+*.temp
+*.tmp
+*.sqlite3
+.DS_Store
+*.egg-info/
+.cache/
+*.egg
+*.manifest
+*.spec
+
+# Environment variables
+.env
+.env.*
+*.key
+*.secret
+
+# Jupyter notebooks checkpoints
+.ipynb_checkpoints/
+
+# Streamlit-specific files
+.streamlit/
+config.toml
+credentials.toml
+
+# Coverage reports
+.coverage
+htmlcov/
+.coverage.*
+
+# Test outputs
+.tox/
+.nox/
+*.test
+*.tests
+.junit/
+
+# Data and model files
+**/data/*
+**/datasets/*
+*.csv
+*.json
+*.xlsx
+*.xls
+*.hdf5
+*.h5
+*.db
+
+# Geospatial files (specific to your project)
+*.gpkg
+*.shp
+*.shx
+*.prj
+*.dbf
+*.gpx
+*.geojson
+*.osm
+
+# Folium / Map-related (if generated dynamically)
+*.html
+map_tiles/
+
+# Build artifacts
+dist/
+build/
+*.whl
+
+# IDE-specific files
+.idea/
+*.iml
+.vscode/
+*.code-workspace
+
+# System files
+Thumbs.db
+desktop.ini
+*.~lock.*
+*.log
