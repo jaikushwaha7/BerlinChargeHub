@@ -1,0 +1,1521 @@
+2025-02-01 19:29:59,023 - INFO - Current working directory: E:\Study\BHT\AdvancedSE\Assignment1\BerlinChargeHub
+2025-02-01 19:29:59,636 - INFO - Starting execution of the main function.
+2025-02-01 19:29:59,645 - INFO - geodata_berlin_plz.csv loaded successfully.
+2025-02-01 19:29:59,831 - INFO - Ladesaeulenregister.csv loaded successfully.
+2025-02-01 19:29:59,831 - INFO - Starting preprop_lstat function.
+2025-02-01 19:29:59,850 - INFO - Renamed columns in DataFrame.
+2025-02-01 19:29:59,870 - INFO - Formatted latitude and longitude columns.
+2025-02-01 19:29:59,873 - INFO - Filtered data for Berlin. Shape: (2746, 5)
+2025-02-01 19:29:59,876 - INFO - Starting sort_by_plz_add_geometry function.
+2025-02-01 19:29:59,880 - INFO - Merged DataFrame with geometry. Shape: (2746, 6)
+2025-02-01 19:29:59,884 - INFO - DataFrame after dropping missing geometries. Shape: (2737, 6)
+2025-02-01 19:29:59,955 - INFO - sort_by_plz_add_geometry function completed successfully.
+2025-02-01 19:29:59,955 - INFO - preprop_lstat function completed successfully.
+2025-02-01 19:29:59,961 - INFO -  ====> Duration 0.13 secs: Preprocessing dataframe from Ladesaeulenregister.csv
+2025-02-01 19:29:59,961 - INFO - Starting count_plz_occurrences function.
+2025-02-01 19:29:59,970 - INFO - count_plz_occurrences function completed successfully. Output DataFrame shape: (183, 3)
+2025-02-01 19:29:59,973 - INFO -  ====> Duration 0.01 secs: Counts loading stations per PLZ
+2025-02-01 19:29:59,980 - INFO - plz_einwohner.csv loaded successfully.
+2025-02-01 19:29:59,980 - INFO - Starting preprop_resid function.
+2025-02-01 19:29:59,981 - INFO - Renamed columns in DataFrame.
+2025-02-01 19:29:59,987 - INFO - Formatted latitude and longitude columns.
+2025-02-01 19:29:59,988 - INFO - Filtered DataFrame by postal codes. Remaining rows: 191
+2025-02-01 19:29:59,990 - INFO - Starting sort_by_plz_add_geometry function.
+2025-02-01 19:29:59,991 - INFO - Merged DataFrame with geometry. Shape: (191, 5)
+2025-02-01 19:29:59,994 - INFO - DataFrame after dropping missing geometries. Shape: (190, 5)
+2025-02-01 19:30:00,002 - INFO - sort_by_plz_add_geometry function completed successfully.
+2025-02-01 19:30:00,002 - INFO - preprop_resid function completed successfully.
+2025-02-01 19:30:00,002 - INFO -  ====> Duration 0.02 secs: 
+Processes and prepares a dataframe by cleaning and filtering postal codes, renaming columns, and transforming
+geographical data. The function works by copying the given data, transforming numeric columns into strings, and replacing
+comma-separators for proper formatting. It also filters the dataset based on postal codes and combines additional
+geometry information via another function.
+
+Return: The processed dataframe with cleaned, formatted, and enriched data combining postal codes and geometrical information.
+:rtype: pandas.DataFrame
+
+2025-02-01 19:30:00,016 - INFO - Called create_electric_charging_residents_heatmap with args: (         PLZ  Number                                           geometry
+0    10117.0      54  POLYGON ((13.40031 52.5233, 13.40051 52.52216,...
+1    10119.0       6  POLYGON ((13.40056 52.53639, 13.4026 52.53507,...
+2    10178.0      30  POLYGON ((13.40918 52.52917, 13.41476 52.52779...
+3    10179.0      37  POLYGON ((13.42827 52.51895, 13.42751 52.51775...
+4    10243.0      39  POLYGON ((13.42554 52.52371, 13.42862 52.52358...
+..       ...     ...                                                ...
+178  14169.0      17  POLYGON ((13.24957 52.45778, 13.25047 52.45803...
+179  14193.0       3  POLYGON ((13.28149 52.49817, 13.28228 52.49778...
+180  14195.0      32  POLYGON ((13.27759 52.47487, 13.28447 52.46998...
+181  14197.0      12  POLYGON ((13.32027 52.47775, 13.31991 52.47096...
+182  14199.0       7  POLYGON ((13.31186 52.48048, 13.30158 52.47452...
+
+[183 rows x 3 columns],        PLZ  Einwohner Breitengrad Längengrad                                           geometry
+0    10115      20313    52.53195    13.3838  POLYGON ((13.37239 52.53821, 13.3741 52.53717,...
+1    10117      12217    52.51752   13.38777  POLYGON ((13.40031 52.5233, 13.40051 52.52216,...
+2    10119      16363    52.53013   13.40551  POLYGON ((13.40056 52.53639, 13.4026 52.53507,...
+3    10178      12167     52.5203   13.40473  POLYGON ((13.40918 52.52917, 13.41476 52.52779...
+4    10179      18664    52.51379   13.41524  POLYGON ((13.42827 52.51895, 13.42751 52.51775...
+..     ...        ...         ...        ...                                                ...
+186  14169      17274       52.45   13.25883  POLYGON ((13.24957 52.45778, 13.25047 52.45803...
+187  14193      15505    52.48135   13.23847  POLYGON ((13.28149 52.49817, 13.28228 52.49778...
+188  14195      14667    52.45858   13.28463  POLYGON ((13.27759 52.47487, 13.28447 52.46998...
+189  14197      17889    52.47319    13.3103  POLYGON ((13.32027 52.47775, 13.31991 52.47096...
+190  14199      13657    52.47796   13.29242  POLYGON ((13.31186 52.48048, 13.30158 52.47452...
+
+[190 rows x 5 columns],                                      Betreiber                  Straße Hausnummer Adresszusatz  Postleitzahl  ... P3 [kW] Public Key3       Steckertypen4 P4 [kW] Public Key4
+0                        Albwerk GmbH & Co. KG          Ennabeurer Weg          0          NaN       72535.0  ...     NaN         NaN                 NaN     NaN         NaN
+1                                        smopi               Albstraße         14          NaN       72535.0  ...      22         NaN  AC Steckdose Typ 2      22         NaN
+2                        Albwerk GmbH & Co. KG  Parkplatz Campingplatz          0          NaN       72589.0  ...     NaN         NaN                 NaN     NaN         NaN
+3                 EnBW mobility+ AG und Co.KG              Hauptstraße        91c          NaN       73340.0  ...     NaN         NaN                 NaN     NaN         NaN
+4                             SWU Energie GmbH              Sterngasse          6          NaN       88481.0  ...     NaN         NaN                 NaN     NaN         NaN
+...                                        ...                     ...        ...          ...           ...  ...     ...         ...                 ...     ...         ...
+69381  Stadtwerke Weimar Stadtversorgungs-GmbH        Wunderwaldstraße         2a          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69382                                      eva               Lachenweg         13          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69383                          TEAG Mobil GmbH          Sulzaer Straße          0          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69384                                      NaN                     NaN        NaN          NaN           NaN  ...     NaN         NaN                 NaN     NaN         NaN
+69385                                      NaN                     NaN        NaN          NaN           NaN  ...     NaN         NaN                 NaN     NaN         NaN
+
+[69386 rows x 26 columns]), kwargs: {}
+2025-02-01 19:30:00,037 - INFO - Starting merge_geo_dataframes function.
+2025-02-01 19:30:00,041 - INFO - Merged population and charging stations DataFrames. Shape: (190, 6)
+2025-02-01 19:30:00,045 - INFO - Filling NaN values in 'Number' column with 0.
+2025-02-01 19:30:00,045 - INFO - merge_geo_dataframes function completed successfully.
+2025-02-01 19:30:00,045 - INFO -  ====> Duration 0.01 secs: 
+Merges the charging stations and population dataframes and fills NA's with 0
+Inputs:
+    - df_charging_stations: A geodataframe sorted by PLZ and containing information about the charging stations
+    - df_population: A geodataframe sorted by PLZ and containing information about the population
+Outputs: A merged geodataframe
+
+2025-02-01 19:30:04,686 - INFO - Current working directory: E:\Study\BHT\AdvancedSE\Assignment1\BerlinChargeHub
+2025-02-01 19:30:04,687 - INFO - Starting execution of the main function.
+2025-02-01 19:30:04,693 - INFO - geodata_berlin_plz.csv loaded successfully.
+2025-02-01 19:30:04,908 - INFO - Ladesaeulenregister.csv loaded successfully.
+2025-02-01 19:30:04,908 - INFO - Starting preprop_lstat function.
+2025-02-01 19:30:04,919 - INFO - Renamed columns in DataFrame.
+2025-02-01 19:30:04,940 - INFO - Formatted latitude and longitude columns.
+2025-02-01 19:30:04,943 - INFO - Filtered data for Berlin. Shape: (2746, 5)
+2025-02-01 19:30:04,946 - INFO - Starting sort_by_plz_add_geometry function.
+2025-02-01 19:30:04,948 - INFO - Merged DataFrame with geometry. Shape: (2746, 6)
+2025-02-01 19:30:04,951 - INFO - DataFrame after dropping missing geometries. Shape: (2737, 6)
+2025-02-01 19:30:05,022 - INFO - sort_by_plz_add_geometry function completed successfully.
+2025-02-01 19:30:05,022 - INFO - preprop_lstat function completed successfully.
+2025-02-01 19:30:05,028 - INFO -  ====> Duration 0.12 secs: Preprocessing dataframe from Ladesaeulenregister.csv
+2025-02-01 19:30:05,028 - INFO - Starting count_plz_occurrences function.
+2025-02-01 19:30:05,033 - INFO - count_plz_occurrences function completed successfully. Output DataFrame shape: (183, 3)
+2025-02-01 19:30:05,035 - INFO -  ====> Duration 0.01 secs: Counts loading stations per PLZ
+2025-02-01 19:30:05,041 - INFO - plz_einwohner.csv loaded successfully.
+2025-02-01 19:30:05,042 - INFO - Starting preprop_resid function.
+2025-02-01 19:30:05,042 - INFO - Renamed columns in DataFrame.
+2025-02-01 19:30:05,048 - INFO - Formatted latitude and longitude columns.
+2025-02-01 19:30:05,048 - INFO - Filtered DataFrame by postal codes. Remaining rows: 191
+2025-02-01 19:30:05,050 - INFO - Starting sort_by_plz_add_geometry function.
+2025-02-01 19:30:05,051 - INFO - Merged DataFrame with geometry. Shape: (191, 5)
+2025-02-01 19:30:05,053 - INFO - DataFrame after dropping missing geometries. Shape: (190, 5)
+2025-02-01 19:30:05,060 - INFO - sort_by_plz_add_geometry function completed successfully.
+2025-02-01 19:30:05,060 - INFO - preprop_resid function completed successfully.
+2025-02-01 19:30:05,060 - INFO -  ====> Duration 0.02 secs: 
+Processes and prepares a dataframe by cleaning and filtering postal codes, renaming columns, and transforming
+geographical data. The function works by copying the given data, transforming numeric columns into strings, and replacing
+comma-separators for proper formatting. It also filters the dataset based on postal codes and combines additional
+geometry information via another function.
+
+Return: The processed dataframe with cleaned, formatted, and enriched data combining postal codes and geometrical information.
+:rtype: pandas.DataFrame
+
+2025-02-01 19:30:05,072 - INFO - Called create_electric_charging_residents_heatmap with args: (         PLZ  Number                                           geometry
+0    10117.0      54  POLYGON ((13.40031 52.5233, 13.40051 52.52216,...
+1    10119.0       6  POLYGON ((13.40056 52.53639, 13.4026 52.53507,...
+2    10178.0      30  POLYGON ((13.40918 52.52917, 13.41476 52.52779...
+3    10179.0      37  POLYGON ((13.42827 52.51895, 13.42751 52.51775...
+4    10243.0      39  POLYGON ((13.42554 52.52371, 13.42862 52.52358...
+..       ...     ...                                                ...
+178  14169.0      17  POLYGON ((13.24957 52.45778, 13.25047 52.45803...
+179  14193.0       3  POLYGON ((13.28149 52.49817, 13.28228 52.49778...
+180  14195.0      32  POLYGON ((13.27759 52.47487, 13.28447 52.46998...
+181  14197.0      12  POLYGON ((13.32027 52.47775, 13.31991 52.47096...
+182  14199.0       7  POLYGON ((13.31186 52.48048, 13.30158 52.47452...
+
+[183 rows x 3 columns],        PLZ  Einwohner Breitengrad Längengrad                                           geometry
+0    10115      20313    52.53195    13.3838  POLYGON ((13.37239 52.53821, 13.3741 52.53717,...
+1    10117      12217    52.51752   13.38777  POLYGON ((13.40031 52.5233, 13.40051 52.52216,...
+2    10119      16363    52.53013   13.40551  POLYGON ((13.40056 52.53639, 13.4026 52.53507,...
+3    10178      12167     52.5203   13.40473  POLYGON ((13.40918 52.52917, 13.41476 52.52779...
+4    10179      18664    52.51379   13.41524  POLYGON ((13.42827 52.51895, 13.42751 52.51775...
+..     ...        ...         ...        ...                                                ...
+186  14169      17274       52.45   13.25883  POLYGON ((13.24957 52.45778, 13.25047 52.45803...
+187  14193      15505    52.48135   13.23847  POLYGON ((13.28149 52.49817, 13.28228 52.49778...
+188  14195      14667    52.45858   13.28463  POLYGON ((13.27759 52.47487, 13.28447 52.46998...
+189  14197      17889    52.47319    13.3103  POLYGON ((13.32027 52.47775, 13.31991 52.47096...
+190  14199      13657    52.47796   13.29242  POLYGON ((13.31186 52.48048, 13.30158 52.47452...
+
+[190 rows x 5 columns],                                      Betreiber                  Straße Hausnummer Adresszusatz  Postleitzahl  ... P3 [kW] Public Key3       Steckertypen4 P4 [kW] Public Key4
+0                        Albwerk GmbH & Co. KG          Ennabeurer Weg          0          NaN       72535.0  ...     NaN         NaN                 NaN     NaN         NaN
+1                                        smopi               Albstraße         14          NaN       72535.0  ...      22         NaN  AC Steckdose Typ 2      22         NaN
+2                        Albwerk GmbH & Co. KG  Parkplatz Campingplatz          0          NaN       72589.0  ...     NaN         NaN                 NaN     NaN         NaN
+3                 EnBW mobility+ AG und Co.KG              Hauptstraße        91c          NaN       73340.0  ...     NaN         NaN                 NaN     NaN         NaN
+4                             SWU Energie GmbH              Sterngasse          6          NaN       88481.0  ...     NaN         NaN                 NaN     NaN         NaN
+...                                        ...                     ...        ...          ...           ...  ...     ...         ...                 ...     ...         ...
+69381  Stadtwerke Weimar Stadtversorgungs-GmbH        Wunderwaldstraße         2a          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69382                                      eva               Lachenweg         13          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69383                          TEAG Mobil GmbH          Sulzaer Straße          0          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69384                                      NaN                     NaN        NaN          NaN           NaN  ...     NaN         NaN                 NaN     NaN         NaN
+69385                                      NaN                     NaN        NaN          NaN           NaN  ...     NaN         NaN                 NaN     NaN         NaN
+
+[69386 rows x 26 columns]), kwargs: {}
+2025-02-01 19:30:05,073 - INFO - Starting merge_geo_dataframes function.
+2025-02-01 19:30:05,077 - INFO - Merged population and charging stations DataFrames. Shape: (190, 6)
+2025-02-01 19:30:05,079 - INFO - Filling NaN values in 'Number' column with 0.
+2025-02-01 19:30:05,079 - INFO - merge_geo_dataframes function completed successfully.
+2025-02-01 19:30:05,080 - INFO -  ====> Duration 0.01 secs: 
+Merges the charging stations and population dataframes and fills NA's with 0
+Inputs:
+    - df_charging_stations: A geodataframe sorted by PLZ and containing information about the charging stations
+    - df_population: A geodataframe sorted by PLZ and containing information about the population
+Outputs: A merged geodataframe
+
+2025-02-01 19:30:05,113 - INFO - Current working directory: E:\Study\BHT\AdvancedSE\Assignment1\BerlinChargeHub
+2025-02-01 19:30:05,114 - INFO - Starting execution of the main function.
+2025-02-01 19:30:05,120 - INFO - geodata_berlin_plz.csv loaded successfully.
+2025-02-01 19:30:05,310 - INFO - Ladesaeulenregister.csv loaded successfully.
+2025-02-01 19:30:05,310 - INFO - Starting preprop_lstat function.
+2025-02-01 19:30:05,324 - INFO - Renamed columns in DataFrame.
+2025-02-01 19:30:05,343 - INFO - Formatted latitude and longitude columns.
+2025-02-01 19:30:05,345 - INFO - Filtered data for Berlin. Shape: (2746, 5)
+2025-02-01 19:30:05,347 - INFO - Starting sort_by_plz_add_geometry function.
+2025-02-01 19:30:05,349 - INFO - Merged DataFrame with geometry. Shape: (2746, 6)
+2025-02-01 19:30:05,352 - INFO - DataFrame after dropping missing geometries. Shape: (2737, 6)
+2025-02-01 19:30:05,422 - INFO - sort_by_plz_add_geometry function completed successfully.
+2025-02-01 19:30:05,422 - INFO - preprop_lstat function completed successfully.
+2025-02-01 19:30:05,427 - INFO -  ====> Duration 0.12 secs: Preprocessing dataframe from Ladesaeulenregister.csv
+2025-02-01 19:30:05,427 - INFO - Starting count_plz_occurrences function.
+2025-02-01 19:30:05,433 - INFO - count_plz_occurrences function completed successfully. Output DataFrame shape: (183, 3)
+2025-02-01 19:30:05,435 - INFO -  ====> Duration 0.01 secs: Counts loading stations per PLZ
+2025-02-01 19:30:05,441 - INFO - plz_einwohner.csv loaded successfully.
+2025-02-01 19:30:05,441 - INFO - Starting preprop_resid function.
+2025-02-01 19:30:05,441 - INFO - Renamed columns in DataFrame.
+2025-02-01 19:30:05,447 - INFO - Formatted latitude and longitude columns.
+2025-02-01 19:30:05,448 - INFO - Filtered DataFrame by postal codes. Remaining rows: 191
+2025-02-01 19:30:05,449 - INFO - Starting sort_by_plz_add_geometry function.
+2025-02-01 19:30:05,450 - INFO - Merged DataFrame with geometry. Shape: (191, 5)
+2025-02-01 19:30:05,452 - INFO - DataFrame after dropping missing geometries. Shape: (190, 5)
+2025-02-01 19:30:05,459 - INFO - sort_by_plz_add_geometry function completed successfully.
+2025-02-01 19:30:05,459 - INFO - preprop_resid function completed successfully.
+2025-02-01 19:30:05,459 - INFO -  ====> Duration 0.02 secs: 
+Processes and prepares a dataframe by cleaning and filtering postal codes, renaming columns, and transforming
+geographical data. The function works by copying the given data, transforming numeric columns into strings, and replacing
+comma-separators for proper formatting. It also filters the dataset based on postal codes and combines additional
+geometry information via another function.
+
+Return: The processed dataframe with cleaned, formatted, and enriched data combining postal codes and geometrical information.
+:rtype: pandas.DataFrame
+
+2025-02-01 19:30:05,471 - INFO - Called create_electric_charging_residents_heatmap with args: (         PLZ  Number                                           geometry
+0    10117.0      54  POLYGON ((13.40031 52.5233, 13.40051 52.52216,...
+1    10119.0       6  POLYGON ((13.40056 52.53639, 13.4026 52.53507,...
+2    10178.0      30  POLYGON ((13.40918 52.52917, 13.41476 52.52779...
+3    10179.0      37  POLYGON ((13.42827 52.51895, 13.42751 52.51775...
+4    10243.0      39  POLYGON ((13.42554 52.52371, 13.42862 52.52358...
+..       ...     ...                                                ...
+178  14169.0      17  POLYGON ((13.24957 52.45778, 13.25047 52.45803...
+179  14193.0       3  POLYGON ((13.28149 52.49817, 13.28228 52.49778...
+180  14195.0      32  POLYGON ((13.27759 52.47487, 13.28447 52.46998...
+181  14197.0      12  POLYGON ((13.32027 52.47775, 13.31991 52.47096...
+182  14199.0       7  POLYGON ((13.31186 52.48048, 13.30158 52.47452...
+
+[183 rows x 3 columns],        PLZ  Einwohner Breitengrad Längengrad                                           geometry
+0    10115      20313    52.53195    13.3838  POLYGON ((13.37239 52.53821, 13.3741 52.53717,...
+1    10117      12217    52.51752   13.38777  POLYGON ((13.40031 52.5233, 13.40051 52.52216,...
+2    10119      16363    52.53013   13.40551  POLYGON ((13.40056 52.53639, 13.4026 52.53507,...
+3    10178      12167     52.5203   13.40473  POLYGON ((13.40918 52.52917, 13.41476 52.52779...
+4    10179      18664    52.51379   13.41524  POLYGON ((13.42827 52.51895, 13.42751 52.51775...
+..     ...        ...         ...        ...                                                ...
+186  14169      17274       52.45   13.25883  POLYGON ((13.24957 52.45778, 13.25047 52.45803...
+187  14193      15505    52.48135   13.23847  POLYGON ((13.28149 52.49817, 13.28228 52.49778...
+188  14195      14667    52.45858   13.28463  POLYGON ((13.27759 52.47487, 13.28447 52.46998...
+189  14197      17889    52.47319    13.3103  POLYGON ((13.32027 52.47775, 13.31991 52.47096...
+190  14199      13657    52.47796   13.29242  POLYGON ((13.31186 52.48048, 13.30158 52.47452...
+
+[190 rows x 5 columns],                                      Betreiber                  Straße Hausnummer Adresszusatz  Postleitzahl  ... P3 [kW] Public Key3       Steckertypen4 P4 [kW] Public Key4
+0                        Albwerk GmbH & Co. KG          Ennabeurer Weg          0          NaN       72535.0  ...     NaN         NaN                 NaN     NaN         NaN
+1                                        smopi               Albstraße         14          NaN       72535.0  ...      22         NaN  AC Steckdose Typ 2      22         NaN
+2                        Albwerk GmbH & Co. KG  Parkplatz Campingplatz          0          NaN       72589.0  ...     NaN         NaN                 NaN     NaN         NaN
+3                 EnBW mobility+ AG und Co.KG              Hauptstraße        91c          NaN       73340.0  ...     NaN         NaN                 NaN     NaN         NaN
+4                             SWU Energie GmbH              Sterngasse          6          NaN       88481.0  ...     NaN         NaN                 NaN     NaN         NaN
+...                                        ...                     ...        ...          ...           ...  ...     ...         ...                 ...     ...         ...
+69381  Stadtwerke Weimar Stadtversorgungs-GmbH        Wunderwaldstraße         2a          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69382                                      eva               Lachenweg         13          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69383                          TEAG Mobil GmbH          Sulzaer Straße          0          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69384                                      NaN                     NaN        NaN          NaN           NaN  ...     NaN         NaN                 NaN     NaN         NaN
+69385                                      NaN                     NaN        NaN          NaN           NaN  ...     NaN         NaN                 NaN     NaN         NaN
+
+[69386 rows x 26 columns]), kwargs: {}
+2025-02-01 19:30:05,472 - INFO - Starting merge_geo_dataframes function.
+2025-02-01 19:30:05,475 - INFO - Merged population and charging stations DataFrames. Shape: (190, 6)
+2025-02-01 19:30:05,478 - INFO - Filling NaN values in 'Number' column with 0.
+2025-02-01 19:30:05,478 - INFO - merge_geo_dataframes function completed successfully.
+2025-02-01 19:30:05,478 - INFO -  ====> Duration 0.01 secs: 
+Merges the charging stations and population dataframes and fills NA's with 0
+Inputs:
+    - df_charging_stations: A geodataframe sorted by PLZ and containing information about the charging stations
+    - df_population: A geodataframe sorted by PLZ and containing information about the population
+Outputs: A merged geodataframe
+
+2025-02-01 19:30:05,484 - INFO - Called mapping_residents with args: (       PLZ  Einwohner Breitengrad Längengrad                                           geometry
+0    10115      20313    52.53195    13.3838  POLYGON ((13.37239 52.53821, 13.3741 52.53717,...
+1    10117      12217    52.51752   13.38777  POLYGON ((13.40031 52.5233, 13.40051 52.52216,...
+2    10119      16363    52.53013   13.40551  POLYGON ((13.40056 52.53639, 13.4026 52.53507,...
+3    10178      12167     52.5203   13.40473  POLYGON ((13.40918 52.52917, 13.41476 52.52779...
+4    10179      18664    52.51379   13.41524  POLYGON ((13.42827 52.51895, 13.42751 52.51775...
+..     ...        ...         ...        ...                                                ...
+186  14169      17274       52.45   13.25883  POLYGON ((13.24957 52.45778, 13.25047 52.45803...
+187  14193      15505    52.48135   13.23847  POLYGON ((13.28149 52.49817, 13.28228 52.49778...
+188  14195      14667    52.45858   13.28463  POLYGON ((13.27759 52.47487, 13.28447 52.46998...
+189  14197      17889    52.47319    13.3103  POLYGON ((13.32027 52.47775, 13.31991 52.47096...
+190  14199      13657    52.47796   13.29242  POLYGON ((13.31186 52.48048, 13.30158 52.47452...
+
+[190 rows x 5 columns], <folium.folium.Map object at 0x0000021AC6C4B620>), kwargs: {}
+2025-02-01 19:30:05,530 - INFO - mapping_residents returned (<branca.colormap.LinearColormap object at 0x0000021AFB4D3AF0>, <folium.folium.Map object at 0x0000021AC6C4B620>)
+2025-02-01 19:30:05,668 - INFO - create_electric_charging_residents_heatmap returned None
+2025-02-01 19:30:05,676 - INFO -  ====> Duration 0.56 secs: Main: Generation of Streamlit App for visualizing electric charging stations & residents in Berlin 
+2025-02-01 19:30:07,060 - INFO - Current working directory: E:\Study\BHT\AdvancedSE\Assignment1\BerlinChargeHub
+2025-02-01 19:30:07,061 - INFO - Starting execution of the main function.
+2025-02-01 19:30:07,069 - INFO - geodata_berlin_plz.csv loaded successfully.
+2025-02-01 19:30:07,319 - INFO - Ladesaeulenregister.csv loaded successfully.
+2025-02-01 19:30:07,319 - INFO - Starting preprop_lstat function.
+2025-02-01 19:30:07,333 - INFO - Renamed columns in DataFrame.
+2025-02-01 19:30:07,356 - INFO - Formatted latitude and longitude columns.
+2025-02-01 19:30:07,359 - INFO - Filtered data for Berlin. Shape: (2746, 5)
+2025-02-01 19:30:07,362 - INFO - Starting sort_by_plz_add_geometry function.
+2025-02-01 19:30:07,364 - INFO - Merged DataFrame with geometry. Shape: (2746, 6)
+2025-02-01 19:30:07,369 - INFO - DataFrame after dropping missing geometries. Shape: (2737, 6)
+2025-02-01 19:30:07,479 - INFO - sort_by_plz_add_geometry function completed successfully.
+2025-02-01 19:30:07,479 - INFO - preprop_lstat function completed successfully.
+2025-02-01 19:30:07,486 - INFO -  ====> Duration 0.17 secs: Preprocessing dataframe from Ladesaeulenregister.csv
+2025-02-01 19:30:07,486 - INFO - Starting count_plz_occurrences function.
+2025-02-01 19:30:07,493 - INFO - count_plz_occurrences function completed successfully. Output DataFrame shape: (183, 3)
+2025-02-01 19:30:07,496 - INFO -  ====> Duration 0.01 secs: Counts loading stations per PLZ
+2025-02-01 19:30:07,505 - INFO - plz_einwohner.csv loaded successfully.
+2025-02-01 19:30:07,505 - INFO - Starting preprop_resid function.
+2025-02-01 19:30:07,506 - INFO - Renamed columns in DataFrame.
+2025-02-01 19:30:07,514 - INFO - Formatted latitude and longitude columns.
+2025-02-01 19:30:07,515 - INFO - Filtered DataFrame by postal codes. Remaining rows: 191
+2025-02-01 19:30:07,517 - INFO - Starting sort_by_plz_add_geometry function.
+2025-02-01 19:30:07,518 - INFO - Merged DataFrame with geometry. Shape: (191, 5)
+2025-02-01 19:30:07,521 - INFO - DataFrame after dropping missing geometries. Shape: (190, 5)
+2025-02-01 19:30:07,531 - INFO - sort_by_plz_add_geometry function completed successfully.
+2025-02-01 19:30:07,531 - INFO - preprop_resid function completed successfully.
+2025-02-01 19:30:07,531 - INFO -  ====> Duration 0.03 secs: 
+Processes and prepares a dataframe by cleaning and filtering postal codes, renaming columns, and transforming
+geographical data. The function works by copying the given data, transforming numeric columns into strings, and replacing
+comma-separators for proper formatting. It also filters the dataset based on postal codes and combines additional
+geometry information via another function.
+
+Return: The processed dataframe with cleaned, formatted, and enriched data combining postal codes and geometrical information.
+:rtype: pandas.DataFrame
+
+2025-02-01 19:30:07,547 - INFO - Called create_electric_charging_residents_heatmap with args: (         PLZ  Number                                           geometry
+0    10117.0      54  POLYGON ((13.40031 52.5233, 13.40051 52.52216,...
+1    10119.0       6  POLYGON ((13.40056 52.53639, 13.4026 52.53507,...
+2    10178.0      30  POLYGON ((13.40918 52.52917, 13.41476 52.52779...
+3    10179.0      37  POLYGON ((13.42827 52.51895, 13.42751 52.51775...
+4    10243.0      39  POLYGON ((13.42554 52.52371, 13.42862 52.52358...
+..       ...     ...                                                ...
+178  14169.0      17  POLYGON ((13.24957 52.45778, 13.25047 52.45803...
+179  14193.0       3  POLYGON ((13.28149 52.49817, 13.28228 52.49778...
+180  14195.0      32  POLYGON ((13.27759 52.47487, 13.28447 52.46998...
+181  14197.0      12  POLYGON ((13.32027 52.47775, 13.31991 52.47096...
+182  14199.0       7  POLYGON ((13.31186 52.48048, 13.30158 52.47452...
+
+[183 rows x 3 columns],        PLZ  Einwohner Breitengrad Längengrad                                           geometry
+0    10115      20313    52.53195    13.3838  POLYGON ((13.37239 52.53821, 13.3741 52.53717,...
+1    10117      12217    52.51752   13.38777  POLYGON ((13.40031 52.5233, 13.40051 52.52216,...
+2    10119      16363    52.53013   13.40551  POLYGON ((13.40056 52.53639, 13.4026 52.53507,...
+3    10178      12167     52.5203   13.40473  POLYGON ((13.40918 52.52917, 13.41476 52.52779...
+4    10179      18664    52.51379   13.41524  POLYGON ((13.42827 52.51895, 13.42751 52.51775...
+..     ...        ...         ...        ...                                                ...
+186  14169      17274       52.45   13.25883  POLYGON ((13.24957 52.45778, 13.25047 52.45803...
+187  14193      15505    52.48135   13.23847  POLYGON ((13.28149 52.49817, 13.28228 52.49778...
+188  14195      14667    52.45858   13.28463  POLYGON ((13.27759 52.47487, 13.28447 52.46998...
+189  14197      17889    52.47319    13.3103  POLYGON ((13.32027 52.47775, 13.31991 52.47096...
+190  14199      13657    52.47796   13.29242  POLYGON ((13.31186 52.48048, 13.30158 52.47452...
+
+[190 rows x 5 columns],                                      Betreiber                  Straße Hausnummer Adresszusatz  Postleitzahl  ... P3 [kW] Public Key3       Steckertypen4 P4 [kW] Public Key4
+0                        Albwerk GmbH & Co. KG          Ennabeurer Weg          0          NaN       72535.0  ...     NaN         NaN                 NaN     NaN         NaN
+1                                        smopi               Albstraße         14          NaN       72535.0  ...      22         NaN  AC Steckdose Typ 2      22         NaN
+2                        Albwerk GmbH & Co. KG  Parkplatz Campingplatz          0          NaN       72589.0  ...     NaN         NaN                 NaN     NaN         NaN
+3                 EnBW mobility+ AG und Co.KG              Hauptstraße        91c          NaN       73340.0  ...     NaN         NaN                 NaN     NaN         NaN
+4                             SWU Energie GmbH              Sterngasse          6          NaN       88481.0  ...     NaN         NaN                 NaN     NaN         NaN
+...                                        ...                     ...        ...          ...           ...  ...     ...         ...                 ...     ...         ...
+69381  Stadtwerke Weimar Stadtversorgungs-GmbH        Wunderwaldstraße         2a          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69382                                      eva               Lachenweg         13          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69383                          TEAG Mobil GmbH          Sulzaer Straße          0          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69384                                      NaN                     NaN        NaN          NaN           NaN  ...     NaN         NaN                 NaN     NaN         NaN
+69385                                      NaN                     NaN        NaN          NaN           NaN  ...     NaN         NaN                 NaN     NaN         NaN
+
+[69386 rows x 26 columns]), kwargs: {}
+2025-02-01 19:30:07,548 - INFO - Starting merge_geo_dataframes function.
+2025-02-01 19:30:07,553 - INFO - Merged population and charging stations DataFrames. Shape: (190, 6)
+2025-02-01 19:30:07,556 - INFO - Filling NaN values in 'Number' column with 0.
+2025-02-01 19:30:07,556 - INFO - merge_geo_dataframes function completed successfully.
+2025-02-01 19:30:07,556 - INFO -  ====> Duration 0.01 secs: 
+Merges the charging stations and population dataframes and fills NA's with 0
+Inputs:
+    - df_charging_stations: A geodataframe sorted by PLZ and containing information about the charging stations
+    - df_population: A geodataframe sorted by PLZ and containing information about the population
+Outputs: A merged geodataframe
+
+2025-02-01 19:30:07,562 - INFO - Called ChargeStationRating with args: (), kwargs: {}
+2025-02-01 19:30:07,562 - INFO - ChargeStationRating returned <src.application.chaging_station_rate.ChargeStationRating object at 0x0000021AC6C4B4D0>
+2025-02-01 19:30:07,582 - INFO - create_electric_charging_residents_heatmap returned None
+2025-02-01 19:30:07,591 - INFO -  ====> Duration 0.53 secs: Main: Generation of Streamlit App for visualizing electric charging stations & residents in Berlin 
+2025-02-01 19:30:07,789 - INFO - Current working directory: E:\Study\BHT\AdvancedSE\Assignment1\BerlinChargeHub
+2025-02-01 19:30:07,790 - INFO - Starting execution of the main function.
+2025-02-01 19:30:07,798 - INFO - geodata_berlin_plz.csv loaded successfully.
+2025-02-01 19:30:08,041 - INFO - Ladesaeulenregister.csv loaded successfully.
+2025-02-01 19:30:08,042 - INFO - Starting preprop_lstat function.
+2025-02-01 19:30:08,054 - INFO - Renamed columns in DataFrame.
+2025-02-01 19:30:08,073 - INFO - Formatted latitude and longitude columns.
+2025-02-01 19:30:08,076 - INFO - Filtered data for Berlin. Shape: (2746, 5)
+2025-02-01 19:30:08,078 - INFO - Starting sort_by_plz_add_geometry function.
+2025-02-01 19:30:08,081 - INFO - Merged DataFrame with geometry. Shape: (2746, 6)
+2025-02-01 19:30:08,084 - INFO - DataFrame after dropping missing geometries. Shape: (2737, 6)
+2025-02-01 19:30:08,153 - INFO - sort_by_plz_add_geometry function completed successfully.
+2025-02-01 19:30:08,154 - INFO - preprop_lstat function completed successfully.
+2025-02-01 19:30:08,161 - INFO -  ====> Duration 0.12 secs: Preprocessing dataframe from Ladesaeulenregister.csv
+2025-02-01 19:30:08,161 - INFO - Starting count_plz_occurrences function.
+2025-02-01 19:30:08,166 - INFO - count_plz_occurrences function completed successfully. Output DataFrame shape: (183, 3)
+2025-02-01 19:30:08,169 - INFO -  ====> Duration 0.01 secs: Counts loading stations per PLZ
+2025-02-01 19:30:08,176 - INFO - plz_einwohner.csv loaded successfully.
+2025-02-01 19:30:08,176 - INFO - Starting preprop_resid function.
+2025-02-01 19:30:08,177 - INFO - Renamed columns in DataFrame.
+2025-02-01 19:30:08,183 - INFO - Formatted latitude and longitude columns.
+2025-02-01 19:30:08,184 - INFO - Filtered DataFrame by postal codes. Remaining rows: 191
+2025-02-01 19:30:08,185 - INFO - Starting sort_by_plz_add_geometry function.
+2025-02-01 19:30:08,186 - INFO - Merged DataFrame with geometry. Shape: (191, 5)
+2025-02-01 19:30:08,189 - INFO - DataFrame after dropping missing geometries. Shape: (190, 5)
+2025-02-01 19:30:08,196 - INFO - sort_by_plz_add_geometry function completed successfully.
+2025-02-01 19:30:08,196 - INFO - preprop_resid function completed successfully.
+2025-02-01 19:30:08,196 - INFO -  ====> Duration 0.02 secs: 
+Processes and prepares a dataframe by cleaning and filtering postal codes, renaming columns, and transforming
+geographical data. The function works by copying the given data, transforming numeric columns into strings, and replacing
+comma-separators for proper formatting. It also filters the dataset based on postal codes and combines additional
+geometry information via another function.
+
+Return: The processed dataframe with cleaned, formatted, and enriched data combining postal codes and geometrical information.
+:rtype: pandas.DataFrame
+
+2025-02-01 19:30:08,209 - INFO - Called create_electric_charging_residents_heatmap with args: (         PLZ  Number                                           geometry
+0    10117.0      54  POLYGON ((13.40031 52.5233, 13.40051 52.52216,...
+1    10119.0       6  POLYGON ((13.40056 52.53639, 13.4026 52.53507,...
+2    10178.0      30  POLYGON ((13.40918 52.52917, 13.41476 52.52779...
+3    10179.0      37  POLYGON ((13.42827 52.51895, 13.42751 52.51775...
+4    10243.0      39  POLYGON ((13.42554 52.52371, 13.42862 52.52358...
+..       ...     ...                                                ...
+178  14169.0      17  POLYGON ((13.24957 52.45778, 13.25047 52.45803...
+179  14193.0       3  POLYGON ((13.28149 52.49817, 13.28228 52.49778...
+180  14195.0      32  POLYGON ((13.27759 52.47487, 13.28447 52.46998...
+181  14197.0      12  POLYGON ((13.32027 52.47775, 13.31991 52.47096...
+182  14199.0       7  POLYGON ((13.31186 52.48048, 13.30158 52.47452...
+
+[183 rows x 3 columns],        PLZ  Einwohner Breitengrad Längengrad                                           geometry
+0    10115      20313    52.53195    13.3838  POLYGON ((13.37239 52.53821, 13.3741 52.53717,...
+1    10117      12217    52.51752   13.38777  POLYGON ((13.40031 52.5233, 13.40051 52.52216,...
+2    10119      16363    52.53013   13.40551  POLYGON ((13.40056 52.53639, 13.4026 52.53507,...
+3    10178      12167     52.5203   13.40473  POLYGON ((13.40918 52.52917, 13.41476 52.52779...
+4    10179      18664    52.51379   13.41524  POLYGON ((13.42827 52.51895, 13.42751 52.51775...
+..     ...        ...         ...        ...                                                ...
+186  14169      17274       52.45   13.25883  POLYGON ((13.24957 52.45778, 13.25047 52.45803...
+187  14193      15505    52.48135   13.23847  POLYGON ((13.28149 52.49817, 13.28228 52.49778...
+188  14195      14667    52.45858   13.28463  POLYGON ((13.27759 52.47487, 13.28447 52.46998...
+189  14197      17889    52.47319    13.3103  POLYGON ((13.32027 52.47775, 13.31991 52.47096...
+190  14199      13657    52.47796   13.29242  POLYGON ((13.31186 52.48048, 13.30158 52.47452...
+
+[190 rows x 5 columns],                                      Betreiber                  Straße Hausnummer Adresszusatz  Postleitzahl  ... P3 [kW] Public Key3       Steckertypen4 P4 [kW] Public Key4
+0                        Albwerk GmbH & Co. KG          Ennabeurer Weg          0          NaN       72535.0  ...     NaN         NaN                 NaN     NaN         NaN
+1                                        smopi               Albstraße         14          NaN       72535.0  ...      22         NaN  AC Steckdose Typ 2      22         NaN
+2                        Albwerk GmbH & Co. KG  Parkplatz Campingplatz          0          NaN       72589.0  ...     NaN         NaN                 NaN     NaN         NaN
+3                 EnBW mobility+ AG und Co.KG              Hauptstraße        91c          NaN       73340.0  ...     NaN         NaN                 NaN     NaN         NaN
+4                             SWU Energie GmbH              Sterngasse          6          NaN       88481.0  ...     NaN         NaN                 NaN     NaN         NaN
+...                                        ...                     ...        ...          ...           ...  ...     ...         ...                 ...     ...         ...
+69381  Stadtwerke Weimar Stadtversorgungs-GmbH        Wunderwaldstraße         2a          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69382                                      eva               Lachenweg         13          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69383                          TEAG Mobil GmbH          Sulzaer Straße          0          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69384                                      NaN                     NaN        NaN          NaN           NaN  ...     NaN         NaN                 NaN     NaN         NaN
+69385                                      NaN                     NaN        NaN          NaN           NaN  ...     NaN         NaN                 NaN     NaN         NaN
+
+[69386 rows x 26 columns]), kwargs: {}
+2025-02-01 19:30:08,210 - INFO - Starting merge_geo_dataframes function.
+2025-02-01 19:30:08,214 - INFO - Merged population and charging stations DataFrames. Shape: (190, 6)
+2025-02-01 19:30:08,216 - INFO - Filling NaN values in 'Number' column with 0.
+2025-02-01 19:30:08,216 - INFO - merge_geo_dataframes function completed successfully.
+2025-02-01 19:30:08,217 - INFO -  ====> Duration 0.01 secs: 
+Merges the charging stations and population dataframes and fills NA's with 0
+Inputs:
+    - df_charging_stations: A geodataframe sorted by PLZ and containing information about the charging stations
+    - df_population: A geodataframe sorted by PLZ and containing information about the population
+Outputs: A merged geodataframe
+
+2025-02-01 19:30:08,463 - INFO - create_electric_charging_residents_heatmap returned None
+2025-02-01 19:30:08,475 - INFO -  ====> Duration 0.68 secs: Main: Generation of Streamlit App for visualizing electric charging stations & residents in Berlin 
+2025-02-01 19:30:19,830 - INFO - Current working directory: E:\Study\BHT\AdvancedSE\Assignment1\BerlinChargeHub
+2025-02-01 19:30:19,831 - INFO - Starting execution of the main function.
+2025-02-01 19:30:19,836 - INFO - geodata_berlin_plz.csv loaded successfully.
+2025-02-01 19:30:20,062 - INFO - Ladesaeulenregister.csv loaded successfully.
+2025-02-01 19:30:20,063 - INFO - Starting preprop_lstat function.
+2025-02-01 19:30:20,076 - INFO - Renamed columns in DataFrame.
+2025-02-01 19:30:20,102 - INFO - Formatted latitude and longitude columns.
+2025-02-01 19:30:20,105 - INFO - Filtered data for Berlin. Shape: (2746, 5)
+2025-02-01 19:30:20,108 - INFO - Starting sort_by_plz_add_geometry function.
+2025-02-01 19:30:20,110 - INFO - Merged DataFrame with geometry. Shape: (2746, 6)
+2025-02-01 19:30:20,113 - INFO - DataFrame after dropping missing geometries. Shape: (2737, 6)
+2025-02-01 19:30:20,185 - INFO - sort_by_plz_add_geometry function completed successfully.
+2025-02-01 19:30:20,185 - INFO - preprop_lstat function completed successfully.
+2025-02-01 19:30:20,191 - INFO -  ====> Duration 0.13 secs: Preprocessing dataframe from Ladesaeulenregister.csv
+2025-02-01 19:30:20,191 - INFO - Starting count_plz_occurrences function.
+2025-02-01 19:30:20,197 - INFO - count_plz_occurrences function completed successfully. Output DataFrame shape: (183, 3)
+2025-02-01 19:30:20,200 - INFO -  ====> Duration 0.01 secs: Counts loading stations per PLZ
+2025-02-01 19:30:20,205 - INFO - plz_einwohner.csv loaded successfully.
+2025-02-01 19:30:20,205 - INFO - Starting preprop_resid function.
+2025-02-01 19:30:20,206 - INFO - Renamed columns in DataFrame.
+2025-02-01 19:30:20,212 - INFO - Formatted latitude and longitude columns.
+2025-02-01 19:30:20,213 - INFO - Filtered DataFrame by postal codes. Remaining rows: 191
+2025-02-01 19:30:20,215 - INFO - Starting sort_by_plz_add_geometry function.
+2025-02-01 19:30:20,216 - INFO - Merged DataFrame with geometry. Shape: (191, 5)
+2025-02-01 19:30:20,218 - INFO - DataFrame after dropping missing geometries. Shape: (190, 5)
+2025-02-01 19:30:20,226 - INFO - sort_by_plz_add_geometry function completed successfully.
+2025-02-01 19:30:20,226 - INFO - preprop_resid function completed successfully.
+2025-02-01 19:30:20,226 - INFO -  ====> Duration 0.02 secs: 
+Processes and prepares a dataframe by cleaning and filtering postal codes, renaming columns, and transforming
+geographical data. The function works by copying the given data, transforming numeric columns into strings, and replacing
+comma-separators for proper formatting. It also filters the dataset based on postal codes and combines additional
+geometry information via another function.
+
+Return: The processed dataframe with cleaned, formatted, and enriched data combining postal codes and geometrical information.
+:rtype: pandas.DataFrame
+
+2025-02-01 19:30:20,239 - INFO - Called create_electric_charging_residents_heatmap with args: (         PLZ  Number                                           geometry
+0    10117.0      54  POLYGON ((13.40031 52.5233, 13.40051 52.52216,...
+1    10119.0       6  POLYGON ((13.40056 52.53639, 13.4026 52.53507,...
+2    10178.0      30  POLYGON ((13.40918 52.52917, 13.41476 52.52779...
+3    10179.0      37  POLYGON ((13.42827 52.51895, 13.42751 52.51775...
+4    10243.0      39  POLYGON ((13.42554 52.52371, 13.42862 52.52358...
+..       ...     ...                                                ...
+178  14169.0      17  POLYGON ((13.24957 52.45778, 13.25047 52.45803...
+179  14193.0       3  POLYGON ((13.28149 52.49817, 13.28228 52.49778...
+180  14195.0      32  POLYGON ((13.27759 52.47487, 13.28447 52.46998...
+181  14197.0      12  POLYGON ((13.32027 52.47775, 13.31991 52.47096...
+182  14199.0       7  POLYGON ((13.31186 52.48048, 13.30158 52.47452...
+
+[183 rows x 3 columns],        PLZ  Einwohner Breitengrad Längengrad                                           geometry
+0    10115      20313    52.53195    13.3838  POLYGON ((13.37239 52.53821, 13.3741 52.53717,...
+1    10117      12217    52.51752   13.38777  POLYGON ((13.40031 52.5233, 13.40051 52.52216,...
+2    10119      16363    52.53013   13.40551  POLYGON ((13.40056 52.53639, 13.4026 52.53507,...
+3    10178      12167     52.5203   13.40473  POLYGON ((13.40918 52.52917, 13.41476 52.52779...
+4    10179      18664    52.51379   13.41524  POLYGON ((13.42827 52.51895, 13.42751 52.51775...
+..     ...        ...         ...        ...                                                ...
+186  14169      17274       52.45   13.25883  POLYGON ((13.24957 52.45778, 13.25047 52.45803...
+187  14193      15505    52.48135   13.23847  POLYGON ((13.28149 52.49817, 13.28228 52.49778...
+188  14195      14667    52.45858   13.28463  POLYGON ((13.27759 52.47487, 13.28447 52.46998...
+189  14197      17889    52.47319    13.3103  POLYGON ((13.32027 52.47775, 13.31991 52.47096...
+190  14199      13657    52.47796   13.29242  POLYGON ((13.31186 52.48048, 13.30158 52.47452...
+
+[190 rows x 5 columns],                                      Betreiber                  Straße Hausnummer Adresszusatz  Postleitzahl  ... P3 [kW] Public Key3       Steckertypen4 P4 [kW] Public Key4
+0                        Albwerk GmbH & Co. KG          Ennabeurer Weg          0          NaN       72535.0  ...     NaN         NaN                 NaN     NaN         NaN
+1                                        smopi               Albstraße         14          NaN       72535.0  ...      22         NaN  AC Steckdose Typ 2      22         NaN
+2                        Albwerk GmbH & Co. KG  Parkplatz Campingplatz          0          NaN       72589.0  ...     NaN         NaN                 NaN     NaN         NaN
+3                 EnBW mobility+ AG und Co.KG              Hauptstraße        91c          NaN       73340.0  ...     NaN         NaN                 NaN     NaN         NaN
+4                             SWU Energie GmbH              Sterngasse          6          NaN       88481.0  ...     NaN         NaN                 NaN     NaN         NaN
+...                                        ...                     ...        ...          ...           ...  ...     ...         ...                 ...     ...         ...
+69381  Stadtwerke Weimar Stadtversorgungs-GmbH        Wunderwaldstraße         2a          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69382                                      eva               Lachenweg         13          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69383                          TEAG Mobil GmbH          Sulzaer Straße          0          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69384                                      NaN                     NaN        NaN          NaN           NaN  ...     NaN         NaN                 NaN     NaN         NaN
+69385                                      NaN                     NaN        NaN          NaN           NaN  ...     NaN         NaN                 NaN     NaN         NaN
+
+[69386 rows x 26 columns]), kwargs: {}
+2025-02-01 19:30:20,240 - INFO - Starting merge_geo_dataframes function.
+2025-02-01 19:30:20,243 - INFO - Merged population and charging stations DataFrames. Shape: (190, 6)
+2025-02-01 19:30:20,246 - INFO - Filling NaN values in 'Number' column with 0.
+2025-02-01 19:30:20,246 - INFO - merge_geo_dataframes function completed successfully.
+2025-02-01 19:30:20,247 - INFO -  ====> Duration 0.01 secs: 
+Merges the charging stations and population dataframes and fills NA's with 0
+Inputs:
+    - df_charging_stations: A geodataframe sorted by PLZ and containing information about the charging stations
+    - df_population: A geodataframe sorted by PLZ and containing information about the population
+Outputs: A merged geodataframe
+
+2025-02-01 19:30:20,420 - INFO - create_electric_charging_residents_heatmap returned None
+2025-02-01 19:30:20,430 - INFO -  ====> Duration 0.60 secs: Main: Generation of Streamlit App for visualizing electric charging stations & residents in Berlin 
+2025-02-01 19:30:21,479 - INFO - Current working directory: E:\Study\BHT\AdvancedSE\Assignment1\BerlinChargeHub
+2025-02-01 19:30:21,480 - INFO - Starting execution of the main function.
+2025-02-01 19:30:21,486 - INFO - geodata_berlin_plz.csv loaded successfully.
+2025-02-01 19:30:21,729 - INFO - Ladesaeulenregister.csv loaded successfully.
+2025-02-01 19:30:21,729 - INFO - Starting preprop_lstat function.
+2025-02-01 19:30:21,739 - INFO - Renamed columns in DataFrame.
+2025-02-01 19:30:21,757 - INFO - Formatted latitude and longitude columns.
+2025-02-01 19:30:21,760 - INFO - Filtered data for Berlin. Shape: (2746, 5)
+2025-02-01 19:30:21,763 - INFO - Starting sort_by_plz_add_geometry function.
+2025-02-01 19:30:21,765 - INFO - Merged DataFrame with geometry. Shape: (2746, 6)
+2025-02-01 19:30:21,768 - INFO - DataFrame after dropping missing geometries. Shape: (2737, 6)
+2025-02-01 19:30:21,839 - INFO - sort_by_plz_add_geometry function completed successfully.
+2025-02-01 19:30:21,839 - INFO - preprop_lstat function completed successfully.
+2025-02-01 19:30:21,846 - INFO -  ====> Duration 0.12 secs: Preprocessing dataframe from Ladesaeulenregister.csv
+2025-02-01 19:30:21,846 - INFO - Starting count_plz_occurrences function.
+2025-02-01 19:30:21,852 - INFO - count_plz_occurrences function completed successfully. Output DataFrame shape: (183, 3)
+2025-02-01 19:30:21,855 - INFO -  ====> Duration 0.01 secs: Counts loading stations per PLZ
+2025-02-01 19:30:21,861 - INFO - plz_einwohner.csv loaded successfully.
+2025-02-01 19:30:21,861 - INFO - Starting preprop_resid function.
+2025-02-01 19:30:21,861 - INFO - Renamed columns in DataFrame.
+2025-02-01 19:30:21,867 - INFO - Formatted latitude and longitude columns.
+2025-02-01 19:30:21,868 - INFO - Filtered DataFrame by postal codes. Remaining rows: 191
+2025-02-01 19:30:21,870 - INFO - Starting sort_by_plz_add_geometry function.
+2025-02-01 19:30:21,870 - INFO - Merged DataFrame with geometry. Shape: (191, 5)
+2025-02-01 19:30:21,873 - INFO - DataFrame after dropping missing geometries. Shape: (190, 5)
+2025-02-01 19:30:21,882 - INFO - sort_by_plz_add_geometry function completed successfully.
+2025-02-01 19:30:21,882 - INFO - preprop_resid function completed successfully.
+2025-02-01 19:30:21,882 - INFO -  ====> Duration 0.02 secs: 
+Processes and prepares a dataframe by cleaning and filtering postal codes, renaming columns, and transforming
+geographical data. The function works by copying the given data, transforming numeric columns into strings, and replacing
+comma-separators for proper formatting. It also filters the dataset based on postal codes and combines additional
+geometry information via another function.
+
+Return: The processed dataframe with cleaned, formatted, and enriched data combining postal codes and geometrical information.
+:rtype: pandas.DataFrame
+
+2025-02-01 19:30:21,896 - INFO - Called create_electric_charging_residents_heatmap with args: (         PLZ  Number                                           geometry
+0    10117.0      54  POLYGON ((13.40031 52.5233, 13.40051 52.52216,...
+1    10119.0       6  POLYGON ((13.40056 52.53639, 13.4026 52.53507,...
+2    10178.0      30  POLYGON ((13.40918 52.52917, 13.41476 52.52779...
+3    10179.0      37  POLYGON ((13.42827 52.51895, 13.42751 52.51775...
+4    10243.0      39  POLYGON ((13.42554 52.52371, 13.42862 52.52358...
+..       ...     ...                                                ...
+178  14169.0      17  POLYGON ((13.24957 52.45778, 13.25047 52.45803...
+179  14193.0       3  POLYGON ((13.28149 52.49817, 13.28228 52.49778...
+180  14195.0      32  POLYGON ((13.27759 52.47487, 13.28447 52.46998...
+181  14197.0      12  POLYGON ((13.32027 52.47775, 13.31991 52.47096...
+182  14199.0       7  POLYGON ((13.31186 52.48048, 13.30158 52.47452...
+
+[183 rows x 3 columns],        PLZ  Einwohner Breitengrad Längengrad                                           geometry
+0    10115      20313    52.53195    13.3838  POLYGON ((13.37239 52.53821, 13.3741 52.53717,...
+1    10117      12217    52.51752   13.38777  POLYGON ((13.40031 52.5233, 13.40051 52.52216,...
+2    10119      16363    52.53013   13.40551  POLYGON ((13.40056 52.53639, 13.4026 52.53507,...
+3    10178      12167     52.5203   13.40473  POLYGON ((13.40918 52.52917, 13.41476 52.52779...
+4    10179      18664    52.51379   13.41524  POLYGON ((13.42827 52.51895, 13.42751 52.51775...
+..     ...        ...         ...        ...                                                ...
+186  14169      17274       52.45   13.25883  POLYGON ((13.24957 52.45778, 13.25047 52.45803...
+187  14193      15505    52.48135   13.23847  POLYGON ((13.28149 52.49817, 13.28228 52.49778...
+188  14195      14667    52.45858   13.28463  POLYGON ((13.27759 52.47487, 13.28447 52.46998...
+189  14197      17889    52.47319    13.3103  POLYGON ((13.32027 52.47775, 13.31991 52.47096...
+190  14199      13657    52.47796   13.29242  POLYGON ((13.31186 52.48048, 13.30158 52.47452...
+
+[190 rows x 5 columns],                                      Betreiber                  Straße Hausnummer Adresszusatz  Postleitzahl  ... P3 [kW] Public Key3       Steckertypen4 P4 [kW] Public Key4
+0                        Albwerk GmbH & Co. KG          Ennabeurer Weg          0          NaN       72535.0  ...     NaN         NaN                 NaN     NaN         NaN
+1                                        smopi               Albstraße         14          NaN       72535.0  ...      22         NaN  AC Steckdose Typ 2      22         NaN
+2                        Albwerk GmbH & Co. KG  Parkplatz Campingplatz          0          NaN       72589.0  ...     NaN         NaN                 NaN     NaN         NaN
+3                 EnBW mobility+ AG und Co.KG              Hauptstraße        91c          NaN       73340.0  ...     NaN         NaN                 NaN     NaN         NaN
+4                             SWU Energie GmbH              Sterngasse          6          NaN       88481.0  ...     NaN         NaN                 NaN     NaN         NaN
+...                                        ...                     ...        ...          ...           ...  ...     ...         ...                 ...     ...         ...
+69381  Stadtwerke Weimar Stadtversorgungs-GmbH        Wunderwaldstraße         2a          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69382                                      eva               Lachenweg         13          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69383                          TEAG Mobil GmbH          Sulzaer Straße          0          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69384                                      NaN                     NaN        NaN          NaN           NaN  ...     NaN         NaN                 NaN     NaN         NaN
+69385                                      NaN                     NaN        NaN          NaN           NaN  ...     NaN         NaN                 NaN     NaN         NaN
+
+[69386 rows x 26 columns]), kwargs: {}
+2025-02-01 19:30:21,897 - INFO - Starting merge_geo_dataframes function.
+2025-02-01 19:30:21,901 - INFO - Merged population and charging stations DataFrames. Shape: (190, 6)
+2025-02-01 19:30:21,905 - INFO - Filling NaN values in 'Number' column with 0.
+2025-02-01 19:30:21,905 - INFO - merge_geo_dataframes function completed successfully.
+2025-02-01 19:30:21,906 - INFO -  ====> Duration 0.01 secs: 
+Merges the charging stations and population dataframes and fills NA's with 0
+Inputs:
+    - df_charging_stations: A geodataframe sorted by PLZ and containing information about the charging stations
+    - df_population: A geodataframe sorted by PLZ and containing information about the population
+Outputs: A merged geodataframe
+
+2025-02-01 19:30:22,079 - INFO - create_electric_charging_residents_heatmap returned None
+2025-02-01 19:30:22,087 - INFO -  ====> Duration 0.61 secs: Main: Generation of Streamlit App for visualizing electric charging stations & residents in Berlin 
+2025-02-01 19:30:22,212 - INFO - Current working directory: E:\Study\BHT\AdvancedSE\Assignment1\BerlinChargeHub
+2025-02-01 19:30:22,212 - INFO - Starting execution of the main function.
+2025-02-01 19:30:22,218 - INFO - geodata_berlin_plz.csv loaded successfully.
+2025-02-01 19:30:22,416 - INFO - Ladesaeulenregister.csv loaded successfully.
+2025-02-01 19:30:22,416 - INFO - Starting preprop_lstat function.
+2025-02-01 19:30:22,428 - INFO - Renamed columns in DataFrame.
+2025-02-01 19:30:22,446 - INFO - Formatted latitude and longitude columns.
+2025-02-01 19:30:22,450 - INFO - Filtered data for Berlin. Shape: (2746, 5)
+2025-02-01 19:30:22,453 - INFO - Starting sort_by_plz_add_geometry function.
+2025-02-01 19:30:22,454 - INFO - Merged DataFrame with geometry. Shape: (2746, 6)
+2025-02-01 19:30:22,457 - INFO - DataFrame after dropping missing geometries. Shape: (2737, 6)
+2025-02-01 19:30:22,530 - INFO - sort_by_plz_add_geometry function completed successfully.
+2025-02-01 19:30:22,530 - INFO - preprop_lstat function completed successfully.
+2025-02-01 19:30:22,535 - INFO -  ====> Duration 0.12 secs: Preprocessing dataframe from Ladesaeulenregister.csv
+2025-02-01 19:30:22,535 - INFO - Starting count_plz_occurrences function.
+2025-02-01 19:30:22,540 - INFO - count_plz_occurrences function completed successfully. Output DataFrame shape: (183, 3)
+2025-02-01 19:30:22,543 - INFO -  ====> Duration 0.01 secs: Counts loading stations per PLZ
+2025-02-01 19:30:22,549 - INFO - plz_einwohner.csv loaded successfully.
+2025-02-01 19:30:22,549 - INFO - Starting preprop_resid function.
+2025-02-01 19:30:22,550 - INFO - Renamed columns in DataFrame.
+2025-02-01 19:30:22,556 - INFO - Formatted latitude and longitude columns.
+2025-02-01 19:30:22,556 - INFO - Filtered DataFrame by postal codes. Remaining rows: 191
+2025-02-01 19:30:22,558 - INFO - Starting sort_by_plz_add_geometry function.
+2025-02-01 19:30:22,559 - INFO - Merged DataFrame with geometry. Shape: (191, 5)
+2025-02-01 19:30:22,561 - INFO - DataFrame after dropping missing geometries. Shape: (190, 5)
+2025-02-01 19:30:22,568 - INFO - sort_by_plz_add_geometry function completed successfully.
+2025-02-01 19:30:22,569 - INFO - preprop_resid function completed successfully.
+2025-02-01 19:30:22,569 - INFO -  ====> Duration 0.02 secs: 
+Processes and prepares a dataframe by cleaning and filtering postal codes, renaming columns, and transforming
+geographical data. The function works by copying the given data, transforming numeric columns into strings, and replacing
+comma-separators for proper formatting. It also filters the dataset based on postal codes and combines additional
+geometry information via another function.
+
+Return: The processed dataframe with cleaned, formatted, and enriched data combining postal codes and geometrical information.
+:rtype: pandas.DataFrame
+
+2025-02-01 19:30:22,582 - INFO - Called create_electric_charging_residents_heatmap with args: (         PLZ  Number                                           geometry
+0    10117.0      54  POLYGON ((13.40031 52.5233, 13.40051 52.52216,...
+1    10119.0       6  POLYGON ((13.40056 52.53639, 13.4026 52.53507,...
+2    10178.0      30  POLYGON ((13.40918 52.52917, 13.41476 52.52779...
+3    10179.0      37  POLYGON ((13.42827 52.51895, 13.42751 52.51775...
+4    10243.0      39  POLYGON ((13.42554 52.52371, 13.42862 52.52358...
+..       ...     ...                                                ...
+178  14169.0      17  POLYGON ((13.24957 52.45778, 13.25047 52.45803...
+179  14193.0       3  POLYGON ((13.28149 52.49817, 13.28228 52.49778...
+180  14195.0      32  POLYGON ((13.27759 52.47487, 13.28447 52.46998...
+181  14197.0      12  POLYGON ((13.32027 52.47775, 13.31991 52.47096...
+182  14199.0       7  POLYGON ((13.31186 52.48048, 13.30158 52.47452...
+
+[183 rows x 3 columns],        PLZ  Einwohner Breitengrad Längengrad                                           geometry
+0    10115      20313    52.53195    13.3838  POLYGON ((13.37239 52.53821, 13.3741 52.53717,...
+1    10117      12217    52.51752   13.38777  POLYGON ((13.40031 52.5233, 13.40051 52.52216,...
+2    10119      16363    52.53013   13.40551  POLYGON ((13.40056 52.53639, 13.4026 52.53507,...
+3    10178      12167     52.5203   13.40473  POLYGON ((13.40918 52.52917, 13.41476 52.52779...
+4    10179      18664    52.51379   13.41524  POLYGON ((13.42827 52.51895, 13.42751 52.51775...
+..     ...        ...         ...        ...                                                ...
+186  14169      17274       52.45   13.25883  POLYGON ((13.24957 52.45778, 13.25047 52.45803...
+187  14193      15505    52.48135   13.23847  POLYGON ((13.28149 52.49817, 13.28228 52.49778...
+188  14195      14667    52.45858   13.28463  POLYGON ((13.27759 52.47487, 13.28447 52.46998...
+189  14197      17889    52.47319    13.3103  POLYGON ((13.32027 52.47775, 13.31991 52.47096...
+190  14199      13657    52.47796   13.29242  POLYGON ((13.31186 52.48048, 13.30158 52.47452...
+
+[190 rows x 5 columns],                                      Betreiber                  Straße Hausnummer Adresszusatz  Postleitzahl  ... P3 [kW] Public Key3       Steckertypen4 P4 [kW] Public Key4
+0                        Albwerk GmbH & Co. KG          Ennabeurer Weg          0          NaN       72535.0  ...     NaN         NaN                 NaN     NaN         NaN
+1                                        smopi               Albstraße         14          NaN       72535.0  ...      22         NaN  AC Steckdose Typ 2      22         NaN
+2                        Albwerk GmbH & Co. KG  Parkplatz Campingplatz          0          NaN       72589.0  ...     NaN         NaN                 NaN     NaN         NaN
+3                 EnBW mobility+ AG und Co.KG              Hauptstraße        91c          NaN       73340.0  ...     NaN         NaN                 NaN     NaN         NaN
+4                             SWU Energie GmbH              Sterngasse          6          NaN       88481.0  ...     NaN         NaN                 NaN     NaN         NaN
+...                                        ...                     ...        ...          ...           ...  ...     ...         ...                 ...     ...         ...
+69381  Stadtwerke Weimar Stadtversorgungs-GmbH        Wunderwaldstraße         2a          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69382                                      eva               Lachenweg         13          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69383                          TEAG Mobil GmbH          Sulzaer Straße          0          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69384                                      NaN                     NaN        NaN          NaN           NaN  ...     NaN         NaN                 NaN     NaN         NaN
+69385                                      NaN                     NaN        NaN          NaN           NaN  ...     NaN         NaN                 NaN     NaN         NaN
+
+[69386 rows x 26 columns]), kwargs: {}
+2025-02-01 19:30:22,583 - INFO - Starting merge_geo_dataframes function.
+2025-02-01 19:30:22,587 - INFO - Merged population and charging stations DataFrames. Shape: (190, 6)
+2025-02-01 19:30:22,590 - INFO - Filling NaN values in 'Number' column with 0.
+2025-02-01 19:30:22,590 - INFO - merge_geo_dataframes function completed successfully.
+2025-02-01 19:30:22,590 - INFO -  ====> Duration 0.01 secs: 
+Merges the charging stations and population dataframes and fills NA's with 0
+Inputs:
+    - df_charging_stations: A geodataframe sorted by PLZ and containing information about the charging stations
+    - df_population: A geodataframe sorted by PLZ and containing information about the population
+Outputs: A merged geodataframe
+
+2025-02-01 19:30:22,761 - INFO - create_electric_charging_residents_heatmap returned None
+2025-02-01 19:30:22,769 - INFO -  ====> Duration 0.56 secs: Main: Generation of Streamlit App for visualizing electric charging stations & residents in Berlin 
+2025-02-01 19:30:58,587 - INFO - Current working directory: E:\Study\BHT\AdvancedSE\Assignment1\BerlinChargeHub
+2025-02-01 19:30:58,597 - INFO - Starting execution of the main function.
+2025-02-01 19:30:58,602 - INFO - geodata_berlin_plz.csv loaded successfully.
+2025-02-01 19:30:58,777 - INFO - Ladesaeulenregister.csv loaded successfully.
+2025-02-01 19:30:58,777 - INFO - Starting preprop_lstat function.
+2025-02-01 19:30:58,789 - INFO - Renamed columns in DataFrame.
+2025-02-01 19:30:58,806 - INFO - Formatted latitude and longitude columns.
+2025-02-01 19:30:58,809 - INFO - Filtered data for Berlin. Shape: (2746, 5)
+2025-02-01 19:30:58,811 - INFO - Starting sort_by_plz_add_geometry function.
+2025-02-01 19:30:58,813 - INFO - Merged DataFrame with geometry. Shape: (2746, 6)
+2025-02-01 19:30:58,817 - INFO - DataFrame after dropping missing geometries. Shape: (2737, 6)
+2025-02-01 19:30:58,883 - INFO - sort_by_plz_add_geometry function completed successfully.
+2025-02-01 19:30:58,883 - INFO - preprop_lstat function completed successfully.
+2025-02-01 19:30:58,889 - INFO -  ====> Duration 0.11 secs: Preprocessing dataframe from Ladesaeulenregister.csv
+2025-02-01 19:30:58,890 - INFO - Starting count_plz_occurrences function.
+2025-02-01 19:30:58,895 - INFO - count_plz_occurrences function completed successfully. Output DataFrame shape: (183, 3)
+2025-02-01 19:30:58,897 - INFO -  ====> Duration 0.01 secs: Counts loading stations per PLZ
+2025-02-01 19:30:58,902 - INFO - plz_einwohner.csv loaded successfully.
+2025-02-01 19:30:58,903 - INFO - Starting preprop_resid function.
+2025-02-01 19:30:58,904 - INFO - Renamed columns in DataFrame.
+2025-02-01 19:30:58,910 - INFO - Formatted latitude and longitude columns.
+2025-02-01 19:30:58,910 - INFO - Filtered DataFrame by postal codes. Remaining rows: 191
+2025-02-01 19:30:58,913 - INFO - Starting sort_by_plz_add_geometry function.
+2025-02-01 19:30:58,914 - INFO - Merged DataFrame with geometry. Shape: (191, 5)
+2025-02-01 19:30:58,916 - INFO - DataFrame after dropping missing geometries. Shape: (190, 5)
+2025-02-01 19:30:58,923 - INFO - sort_by_plz_add_geometry function completed successfully.
+2025-02-01 19:30:58,923 - INFO - preprop_resid function completed successfully.
+2025-02-01 19:30:58,923 - INFO -  ====> Duration 0.02 secs: 
+Processes and prepares a dataframe by cleaning and filtering postal codes, renaming columns, and transforming
+geographical data. The function works by copying the given data, transforming numeric columns into strings, and replacing
+comma-separators for proper formatting. It also filters the dataset based on postal codes and combines additional
+geometry information via another function.
+
+Return: The processed dataframe with cleaned, formatted, and enriched data combining postal codes and geometrical information.
+:rtype: pandas.DataFrame
+
+2025-02-01 19:30:58,936 - INFO - Called create_electric_charging_residents_heatmap with args: (         PLZ  Number                                           geometry
+0    10117.0      54  POLYGON ((13.40031 52.5233, 13.40051 52.52216,...
+1    10119.0       6  POLYGON ((13.40056 52.53639, 13.4026 52.53507,...
+2    10178.0      30  POLYGON ((13.40918 52.52917, 13.41476 52.52779...
+3    10179.0      37  POLYGON ((13.42827 52.51895, 13.42751 52.51775...
+4    10243.0      39  POLYGON ((13.42554 52.52371, 13.42862 52.52358...
+..       ...     ...                                                ...
+178  14169.0      17  POLYGON ((13.24957 52.45778, 13.25047 52.45803...
+179  14193.0       3  POLYGON ((13.28149 52.49817, 13.28228 52.49778...
+180  14195.0      32  POLYGON ((13.27759 52.47487, 13.28447 52.46998...
+181  14197.0      12  POLYGON ((13.32027 52.47775, 13.31991 52.47096...
+182  14199.0       7  POLYGON ((13.31186 52.48048, 13.30158 52.47452...
+
+[183 rows x 3 columns],        PLZ  Einwohner Breitengrad Längengrad                                           geometry
+0    10115      20313    52.53195    13.3838  POLYGON ((13.37239 52.53821, 13.3741 52.53717,...
+1    10117      12217    52.51752   13.38777  POLYGON ((13.40031 52.5233, 13.40051 52.52216,...
+2    10119      16363    52.53013   13.40551  POLYGON ((13.40056 52.53639, 13.4026 52.53507,...
+3    10178      12167     52.5203   13.40473  POLYGON ((13.40918 52.52917, 13.41476 52.52779...
+4    10179      18664    52.51379   13.41524  POLYGON ((13.42827 52.51895, 13.42751 52.51775...
+..     ...        ...         ...        ...                                                ...
+186  14169      17274       52.45   13.25883  POLYGON ((13.24957 52.45778, 13.25047 52.45803...
+187  14193      15505    52.48135   13.23847  POLYGON ((13.28149 52.49817, 13.28228 52.49778...
+188  14195      14667    52.45858   13.28463  POLYGON ((13.27759 52.47487, 13.28447 52.46998...
+189  14197      17889    52.47319    13.3103  POLYGON ((13.32027 52.47775, 13.31991 52.47096...
+190  14199      13657    52.47796   13.29242  POLYGON ((13.31186 52.48048, 13.30158 52.47452...
+
+[190 rows x 5 columns],                                      Betreiber                  Straße Hausnummer Adresszusatz  Postleitzahl  ... P3 [kW] Public Key3       Steckertypen4 P4 [kW] Public Key4
+0                        Albwerk GmbH & Co. KG          Ennabeurer Weg          0          NaN       72535.0  ...     NaN         NaN                 NaN     NaN         NaN
+1                                        smopi               Albstraße         14          NaN       72535.0  ...      22         NaN  AC Steckdose Typ 2      22         NaN
+2                        Albwerk GmbH & Co. KG  Parkplatz Campingplatz          0          NaN       72589.0  ...     NaN         NaN                 NaN     NaN         NaN
+3                 EnBW mobility+ AG und Co.KG              Hauptstraße        91c          NaN       73340.0  ...     NaN         NaN                 NaN     NaN         NaN
+4                             SWU Energie GmbH              Sterngasse          6          NaN       88481.0  ...     NaN         NaN                 NaN     NaN         NaN
+...                                        ...                     ...        ...          ...           ...  ...     ...         ...                 ...     ...         ...
+69381  Stadtwerke Weimar Stadtversorgungs-GmbH        Wunderwaldstraße         2a          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69382                                      eva               Lachenweg         13          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69383                          TEAG Mobil GmbH          Sulzaer Straße          0          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69384                                      NaN                     NaN        NaN          NaN           NaN  ...     NaN         NaN                 NaN     NaN         NaN
+69385                                      NaN                     NaN        NaN          NaN           NaN  ...     NaN         NaN                 NaN     NaN         NaN
+
+[69386 rows x 26 columns]), kwargs: {}
+2025-02-01 19:30:58,937 - INFO - Starting merge_geo_dataframes function.
+2025-02-01 19:30:58,940 - INFO - Merged population and charging stations DataFrames. Shape: (190, 6)
+2025-02-01 19:30:58,943 - INFO - Filling NaN values in 'Number' column with 0.
+2025-02-01 19:30:58,943 - INFO - merge_geo_dataframes function completed successfully.
+2025-02-01 19:30:58,943 - INFO -  ====> Duration 0.01 secs: 
+Merges the charging stations and population dataframes and fills NA's with 0
+Inputs:
+    - df_charging_stations: A geodataframe sorted by PLZ and containing information about the charging stations
+    - df_population: A geodataframe sorted by PLZ and containing information about the population
+Outputs: A merged geodataframe
+
+2025-02-01 19:30:58,947 - ERROR - create_electric_charging_residents_heatmap raised an exception: DemandCalculator.demand_formula_latex() missing 1 required positional argument: 'self'
+2025-02-01 19:31:15,901 - INFO - Current working directory: E:\Study\BHT\AdvancedSE\Assignment1\BerlinChargeHub
+2025-02-01 19:31:15,911 - INFO - Starting execution of the main function.
+2025-02-01 19:31:15,916 - INFO - geodata_berlin_plz.csv loaded successfully.
+2025-02-01 19:31:16,097 - INFO - Ladesaeulenregister.csv loaded successfully.
+2025-02-01 19:31:16,098 - INFO - Starting preprop_lstat function.
+2025-02-01 19:31:16,109 - INFO - Renamed columns in DataFrame.
+2025-02-01 19:31:16,129 - INFO - Formatted latitude and longitude columns.
+2025-02-01 19:31:16,132 - INFO - Filtered data for Berlin. Shape: (2746, 5)
+2025-02-01 19:31:16,136 - INFO - Starting sort_by_plz_add_geometry function.
+2025-02-01 19:31:16,139 - INFO - Merged DataFrame with geometry. Shape: (2746, 6)
+2025-02-01 19:31:16,143 - INFO - DataFrame after dropping missing geometries. Shape: (2737, 6)
+2025-02-01 19:31:16,214 - INFO - sort_by_plz_add_geometry function completed successfully.
+2025-02-01 19:31:16,214 - INFO - preprop_lstat function completed successfully.
+2025-02-01 19:31:16,218 - INFO -  ====> Duration 0.12 secs: Preprocessing dataframe from Ladesaeulenregister.csv
+2025-02-01 19:31:16,218 - INFO - Starting count_plz_occurrences function.
+2025-02-01 19:31:16,224 - INFO - count_plz_occurrences function completed successfully. Output DataFrame shape: (183, 3)
+2025-02-01 19:31:16,226 - INFO -  ====> Duration 0.01 secs: Counts loading stations per PLZ
+2025-02-01 19:31:16,231 - INFO - plz_einwohner.csv loaded successfully.
+2025-02-01 19:31:16,231 - INFO - Starting preprop_resid function.
+2025-02-01 19:31:16,232 - INFO - Renamed columns in DataFrame.
+2025-02-01 19:31:16,238 - INFO - Formatted latitude and longitude columns.
+2025-02-01 19:31:16,239 - INFO - Filtered DataFrame by postal codes. Remaining rows: 191
+2025-02-01 19:31:16,240 - INFO - Starting sort_by_plz_add_geometry function.
+2025-02-01 19:31:16,242 - INFO - Merged DataFrame with geometry. Shape: (191, 5)
+2025-02-01 19:31:16,244 - INFO - DataFrame after dropping missing geometries. Shape: (190, 5)
+2025-02-01 19:31:16,250 - INFO - sort_by_plz_add_geometry function completed successfully.
+2025-02-01 19:31:16,250 - INFO - preprop_resid function completed successfully.
+2025-02-01 19:31:16,250 - INFO -  ====> Duration 0.02 secs: 
+Processes and prepares a dataframe by cleaning and filtering postal codes, renaming columns, and transforming
+geographical data. The function works by copying the given data, transforming numeric columns into strings, and replacing
+comma-separators for proper formatting. It also filters the dataset based on postal codes and combines additional
+geometry information via another function.
+
+Return: The processed dataframe with cleaned, formatted, and enriched data combining postal codes and geometrical information.
+:rtype: pandas.DataFrame
+
+2025-02-01 19:31:16,263 - INFO - Called create_electric_charging_residents_heatmap with args: (         PLZ  Number                                           geometry
+0    10117.0      54  POLYGON ((13.40031 52.5233, 13.40051 52.52216,...
+1    10119.0       6  POLYGON ((13.40056 52.53639, 13.4026 52.53507,...
+2    10178.0      30  POLYGON ((13.40918 52.52917, 13.41476 52.52779...
+3    10179.0      37  POLYGON ((13.42827 52.51895, 13.42751 52.51775...
+4    10243.0      39  POLYGON ((13.42554 52.52371, 13.42862 52.52358...
+..       ...     ...                                                ...
+178  14169.0      17  POLYGON ((13.24957 52.45778, 13.25047 52.45803...
+179  14193.0       3  POLYGON ((13.28149 52.49817, 13.28228 52.49778...
+180  14195.0      32  POLYGON ((13.27759 52.47487, 13.28447 52.46998...
+181  14197.0      12  POLYGON ((13.32027 52.47775, 13.31991 52.47096...
+182  14199.0       7  POLYGON ((13.31186 52.48048, 13.30158 52.47452...
+
+[183 rows x 3 columns],        PLZ  Einwohner Breitengrad Längengrad                                           geometry
+0    10115      20313    52.53195    13.3838  POLYGON ((13.37239 52.53821, 13.3741 52.53717,...
+1    10117      12217    52.51752   13.38777  POLYGON ((13.40031 52.5233, 13.40051 52.52216,...
+2    10119      16363    52.53013   13.40551  POLYGON ((13.40056 52.53639, 13.4026 52.53507,...
+3    10178      12167     52.5203   13.40473  POLYGON ((13.40918 52.52917, 13.41476 52.52779...
+4    10179      18664    52.51379   13.41524  POLYGON ((13.42827 52.51895, 13.42751 52.51775...
+..     ...        ...         ...        ...                                                ...
+186  14169      17274       52.45   13.25883  POLYGON ((13.24957 52.45778, 13.25047 52.45803...
+187  14193      15505    52.48135   13.23847  POLYGON ((13.28149 52.49817, 13.28228 52.49778...
+188  14195      14667    52.45858   13.28463  POLYGON ((13.27759 52.47487, 13.28447 52.46998...
+189  14197      17889    52.47319    13.3103  POLYGON ((13.32027 52.47775, 13.31991 52.47096...
+190  14199      13657    52.47796   13.29242  POLYGON ((13.31186 52.48048, 13.30158 52.47452...
+
+[190 rows x 5 columns],                                      Betreiber                  Straße Hausnummer Adresszusatz  Postleitzahl  ... P3 [kW] Public Key3       Steckertypen4 P4 [kW] Public Key4
+0                        Albwerk GmbH & Co. KG          Ennabeurer Weg          0          NaN       72535.0  ...     NaN         NaN                 NaN     NaN         NaN
+1                                        smopi               Albstraße         14          NaN       72535.0  ...      22         NaN  AC Steckdose Typ 2      22         NaN
+2                        Albwerk GmbH & Co. KG  Parkplatz Campingplatz          0          NaN       72589.0  ...     NaN         NaN                 NaN     NaN         NaN
+3                 EnBW mobility+ AG und Co.KG              Hauptstraße        91c          NaN       73340.0  ...     NaN         NaN                 NaN     NaN         NaN
+4                             SWU Energie GmbH              Sterngasse          6          NaN       88481.0  ...     NaN         NaN                 NaN     NaN         NaN
+...                                        ...                     ...        ...          ...           ...  ...     ...         ...                 ...     ...         ...
+69381  Stadtwerke Weimar Stadtversorgungs-GmbH        Wunderwaldstraße         2a          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69382                                      eva               Lachenweg         13          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69383                          TEAG Mobil GmbH          Sulzaer Straße          0          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69384                                      NaN                     NaN        NaN          NaN           NaN  ...     NaN         NaN                 NaN     NaN         NaN
+69385                                      NaN                     NaN        NaN          NaN           NaN  ...     NaN         NaN                 NaN     NaN         NaN
+
+[69386 rows x 26 columns]), kwargs: {}
+2025-02-01 19:31:16,264 - INFO - Starting merge_geo_dataframes function.
+2025-02-01 19:31:16,267 - INFO - Merged population and charging stations DataFrames. Shape: (190, 6)
+2025-02-01 19:31:16,270 - INFO - Filling NaN values in 'Number' column with 0.
+2025-02-01 19:31:16,270 - INFO - merge_geo_dataframes function completed successfully.
+2025-02-01 19:31:16,270 - INFO -  ====> Duration 0.01 secs: 
+Merges the charging stations and population dataframes and fills NA's with 0
+Inputs:
+    - df_charging_stations: A geodataframe sorted by PLZ and containing information about the charging stations
+    - df_population: A geodataframe sorted by PLZ and containing information about the population
+Outputs: A merged geodataframe
+
+2025-02-01 19:31:16,438 - INFO - create_electric_charging_residents_heatmap returned None
+2025-02-01 19:31:16,445 - INFO -  ====> Duration 0.53 secs: Main: Generation of Streamlit App for visualizing electric charging stations & residents in Berlin 
+2025-02-01 19:33:28,508 - INFO - Current working directory: E:\Study\BHT\AdvancedSE\Assignment1\BerlinChargeHub
+2025-02-01 19:33:28,518 - INFO - Starting execution of the main function.
+2025-02-01 19:33:28,526 - INFO - geodata_berlin_plz.csv loaded successfully.
+2025-02-01 19:33:28,725 - INFO - Ladesaeulenregister.csv loaded successfully.
+2025-02-01 19:33:28,725 - INFO - Starting preprop_lstat function.
+2025-02-01 19:33:28,737 - INFO - Renamed columns in DataFrame.
+2025-02-01 19:33:28,755 - INFO - Formatted latitude and longitude columns.
+2025-02-01 19:33:28,757 - INFO - Filtered data for Berlin. Shape: (2746, 5)
+2025-02-01 19:33:28,759 - INFO - Starting sort_by_plz_add_geometry function.
+2025-02-01 19:33:28,761 - INFO - Merged DataFrame with geometry. Shape: (2746, 6)
+2025-02-01 19:33:28,764 - INFO - DataFrame after dropping missing geometries. Shape: (2737, 6)
+2025-02-01 19:33:28,830 - INFO - sort_by_plz_add_geometry function completed successfully.
+2025-02-01 19:33:28,830 - INFO - preprop_lstat function completed successfully.
+2025-02-01 19:33:28,837 - INFO -  ====> Duration 0.11 secs: Preprocessing dataframe from Ladesaeulenregister.csv
+2025-02-01 19:33:28,837 - INFO - Starting count_plz_occurrences function.
+2025-02-01 19:33:28,842 - INFO - count_plz_occurrences function completed successfully. Output DataFrame shape: (183, 3)
+2025-02-01 19:33:28,844 - INFO -  ====> Duration 0.01 secs: Counts loading stations per PLZ
+2025-02-01 19:33:28,850 - INFO - plz_einwohner.csv loaded successfully.
+2025-02-01 19:33:28,850 - INFO - Starting preprop_resid function.
+2025-02-01 19:33:28,850 - INFO - Renamed columns in DataFrame.
+2025-02-01 19:33:28,856 - INFO - Formatted latitude and longitude columns.
+2025-02-01 19:33:28,857 - INFO - Filtered DataFrame by postal codes. Remaining rows: 191
+2025-02-01 19:33:28,859 - INFO - Starting sort_by_plz_add_geometry function.
+2025-02-01 19:33:28,860 - INFO - Merged DataFrame with geometry. Shape: (191, 5)
+2025-02-01 19:33:28,862 - INFO - DataFrame after dropping missing geometries. Shape: (190, 5)
+2025-02-01 19:33:28,868 - INFO - sort_by_plz_add_geometry function completed successfully.
+2025-02-01 19:33:28,869 - INFO - preprop_resid function completed successfully.
+2025-02-01 19:33:28,869 - INFO -  ====> Duration 0.02 secs: 
+Processes and prepares a dataframe by cleaning and filtering postal codes, renaming columns, and transforming
+geographical data. The function works by copying the given data, transforming numeric columns into strings, and replacing
+comma-separators for proper formatting. It also filters the dataset based on postal codes and combines additional
+geometry information via another function.
+
+Return: The processed dataframe with cleaned, formatted, and enriched data combining postal codes and geometrical information.
+:rtype: pandas.DataFrame
+
+2025-02-01 19:33:28,881 - INFO - Called create_electric_charging_residents_heatmap with args: (         PLZ  Number                                           geometry
+0    10117.0      54  POLYGON ((13.40031 52.5233, 13.40051 52.52216,...
+1    10119.0       6  POLYGON ((13.40056 52.53639, 13.4026 52.53507,...
+2    10178.0      30  POLYGON ((13.40918 52.52917, 13.41476 52.52779...
+3    10179.0      37  POLYGON ((13.42827 52.51895, 13.42751 52.51775...
+4    10243.0      39  POLYGON ((13.42554 52.52371, 13.42862 52.52358...
+..       ...     ...                                                ...
+178  14169.0      17  POLYGON ((13.24957 52.45778, 13.25047 52.45803...
+179  14193.0       3  POLYGON ((13.28149 52.49817, 13.28228 52.49778...
+180  14195.0      32  POLYGON ((13.27759 52.47487, 13.28447 52.46998...
+181  14197.0      12  POLYGON ((13.32027 52.47775, 13.31991 52.47096...
+182  14199.0       7  POLYGON ((13.31186 52.48048, 13.30158 52.47452...
+
+[183 rows x 3 columns],        PLZ  Einwohner Breitengrad Längengrad                                           geometry
+0    10115      20313    52.53195    13.3838  POLYGON ((13.37239 52.53821, 13.3741 52.53717,...
+1    10117      12217    52.51752   13.38777  POLYGON ((13.40031 52.5233, 13.40051 52.52216,...
+2    10119      16363    52.53013   13.40551  POLYGON ((13.40056 52.53639, 13.4026 52.53507,...
+3    10178      12167     52.5203   13.40473  POLYGON ((13.40918 52.52917, 13.41476 52.52779...
+4    10179      18664    52.51379   13.41524  POLYGON ((13.42827 52.51895, 13.42751 52.51775...
+..     ...        ...         ...        ...                                                ...
+186  14169      17274       52.45   13.25883  POLYGON ((13.24957 52.45778, 13.25047 52.45803...
+187  14193      15505    52.48135   13.23847  POLYGON ((13.28149 52.49817, 13.28228 52.49778...
+188  14195      14667    52.45858   13.28463  POLYGON ((13.27759 52.47487, 13.28447 52.46998...
+189  14197      17889    52.47319    13.3103  POLYGON ((13.32027 52.47775, 13.31991 52.47096...
+190  14199      13657    52.47796   13.29242  POLYGON ((13.31186 52.48048, 13.30158 52.47452...
+
+[190 rows x 5 columns],                                      Betreiber                  Straße Hausnummer Adresszusatz  Postleitzahl  ... P3 [kW] Public Key3       Steckertypen4 P4 [kW] Public Key4
+0                        Albwerk GmbH & Co. KG          Ennabeurer Weg          0          NaN       72535.0  ...     NaN         NaN                 NaN     NaN         NaN
+1                                        smopi               Albstraße         14          NaN       72535.0  ...      22         NaN  AC Steckdose Typ 2      22         NaN
+2                        Albwerk GmbH & Co. KG  Parkplatz Campingplatz          0          NaN       72589.0  ...     NaN         NaN                 NaN     NaN         NaN
+3                 EnBW mobility+ AG und Co.KG              Hauptstraße        91c          NaN       73340.0  ...     NaN         NaN                 NaN     NaN         NaN
+4                             SWU Energie GmbH              Sterngasse          6          NaN       88481.0  ...     NaN         NaN                 NaN     NaN         NaN
+...                                        ...                     ...        ...          ...           ...  ...     ...         ...                 ...     ...         ...
+69381  Stadtwerke Weimar Stadtversorgungs-GmbH        Wunderwaldstraße         2a          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69382                                      eva               Lachenweg         13          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69383                          TEAG Mobil GmbH          Sulzaer Straße          0          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69384                                      NaN                     NaN        NaN          NaN           NaN  ...     NaN         NaN                 NaN     NaN         NaN
+69385                                      NaN                     NaN        NaN          NaN           NaN  ...     NaN         NaN                 NaN     NaN         NaN
+
+[69386 rows x 26 columns]), kwargs: {}
+2025-02-01 19:33:28,883 - INFO - Starting merge_geo_dataframes function.
+2025-02-01 19:33:28,886 - INFO - Merged population and charging stations DataFrames. Shape: (190, 6)
+2025-02-01 19:33:28,888 - INFO - Filling NaN values in 'Number' column with 0.
+2025-02-01 19:33:28,888 - INFO - merge_geo_dataframes function completed successfully.
+2025-02-01 19:33:28,889 - INFO -  ====> Duration 0.01 secs: 
+Merges the charging stations and population dataframes and fills NA's with 0
+Inputs:
+    - df_charging_stations: A geodataframe sorted by PLZ and containing information about the charging stations
+    - df_population: A geodataframe sorted by PLZ and containing information about the population
+Outputs: A merged geodataframe
+
+2025-02-01 19:33:28,894 - ERROR - create_electric_charging_residents_heatmap raised an exception: DemandCalculator.demand_formula_latex() missing 1 required positional argument: 'self'
+2025-02-01 19:33:36,772 - INFO - Current working directory: E:\Study\BHT\AdvancedSE\Assignment1\BerlinChargeHub
+2025-02-01 19:33:36,783 - INFO - Starting execution of the main function.
+2025-02-01 19:33:36,789 - INFO - geodata_berlin_plz.csv loaded successfully.
+2025-02-01 19:33:37,036 - INFO - Ladesaeulenregister.csv loaded successfully.
+2025-02-01 19:33:37,037 - INFO - Starting preprop_lstat function.
+2025-02-01 19:33:37,050 - INFO - Renamed columns in DataFrame.
+2025-02-01 19:33:37,077 - INFO - Formatted latitude and longitude columns.
+2025-02-01 19:33:37,080 - INFO - Filtered data for Berlin. Shape: (2746, 5)
+2025-02-01 19:33:37,083 - INFO - Starting sort_by_plz_add_geometry function.
+2025-02-01 19:33:37,085 - INFO - Merged DataFrame with geometry. Shape: (2746, 6)
+2025-02-01 19:33:37,088 - INFO - DataFrame after dropping missing geometries. Shape: (2737, 6)
+2025-02-01 19:33:37,157 - INFO - sort_by_plz_add_geometry function completed successfully.
+2025-02-01 19:33:37,157 - INFO - preprop_lstat function completed successfully.
+2025-02-01 19:33:37,165 - INFO -  ====> Duration 0.13 secs: Preprocessing dataframe from Ladesaeulenregister.csv
+2025-02-01 19:33:37,165 - INFO - Starting count_plz_occurrences function.
+2025-02-01 19:33:37,170 - INFO - count_plz_occurrences function completed successfully. Output DataFrame shape: (183, 3)
+2025-02-01 19:33:37,172 - INFO -  ====> Duration 0.01 secs: Counts loading stations per PLZ
+2025-02-01 19:33:37,178 - INFO - plz_einwohner.csv loaded successfully.
+2025-02-01 19:33:37,179 - INFO - Starting preprop_resid function.
+2025-02-01 19:33:37,179 - INFO - Renamed columns in DataFrame.
+2025-02-01 19:33:37,185 - INFO - Formatted latitude and longitude columns.
+2025-02-01 19:33:37,185 - INFO - Filtered DataFrame by postal codes. Remaining rows: 191
+2025-02-01 19:33:37,187 - INFO - Starting sort_by_plz_add_geometry function.
+2025-02-01 19:33:37,188 - INFO - Merged DataFrame with geometry. Shape: (191, 5)
+2025-02-01 19:33:37,190 - INFO - DataFrame after dropping missing geometries. Shape: (190, 5)
+2025-02-01 19:33:37,196 - INFO - sort_by_plz_add_geometry function completed successfully.
+2025-02-01 19:33:37,196 - INFO - preprop_resid function completed successfully.
+2025-02-01 19:33:37,196 - INFO -  ====> Duration 0.02 secs: 
+Processes and prepares a dataframe by cleaning and filtering postal codes, renaming columns, and transforming
+geographical data. The function works by copying the given data, transforming numeric columns into strings, and replacing
+comma-separators for proper formatting. It also filters the dataset based on postal codes and combines additional
+geometry information via another function.
+
+Return: The processed dataframe with cleaned, formatted, and enriched data combining postal codes and geometrical information.
+:rtype: pandas.DataFrame
+
+2025-02-01 19:33:37,208 - INFO - Called create_electric_charging_residents_heatmap with args: (         PLZ  Number                                           geometry
+0    10117.0      54  POLYGON ((13.40031 52.5233, 13.40051 52.52216,...
+1    10119.0       6  POLYGON ((13.40056 52.53639, 13.4026 52.53507,...
+2    10178.0      30  POLYGON ((13.40918 52.52917, 13.41476 52.52779...
+3    10179.0      37  POLYGON ((13.42827 52.51895, 13.42751 52.51775...
+4    10243.0      39  POLYGON ((13.42554 52.52371, 13.42862 52.52358...
+..       ...     ...                                                ...
+178  14169.0      17  POLYGON ((13.24957 52.45778, 13.25047 52.45803...
+179  14193.0       3  POLYGON ((13.28149 52.49817, 13.28228 52.49778...
+180  14195.0      32  POLYGON ((13.27759 52.47487, 13.28447 52.46998...
+181  14197.0      12  POLYGON ((13.32027 52.47775, 13.31991 52.47096...
+182  14199.0       7  POLYGON ((13.31186 52.48048, 13.30158 52.47452...
+
+[183 rows x 3 columns],        PLZ  Einwohner Breitengrad Längengrad                                           geometry
+0    10115      20313    52.53195    13.3838  POLYGON ((13.37239 52.53821, 13.3741 52.53717,...
+1    10117      12217    52.51752   13.38777  POLYGON ((13.40031 52.5233, 13.40051 52.52216,...
+2    10119      16363    52.53013   13.40551  POLYGON ((13.40056 52.53639, 13.4026 52.53507,...
+3    10178      12167     52.5203   13.40473  POLYGON ((13.40918 52.52917, 13.41476 52.52779...
+4    10179      18664    52.51379   13.41524  POLYGON ((13.42827 52.51895, 13.42751 52.51775...
+..     ...        ...         ...        ...                                                ...
+186  14169      17274       52.45   13.25883  POLYGON ((13.24957 52.45778, 13.25047 52.45803...
+187  14193      15505    52.48135   13.23847  POLYGON ((13.28149 52.49817, 13.28228 52.49778...
+188  14195      14667    52.45858   13.28463  POLYGON ((13.27759 52.47487, 13.28447 52.46998...
+189  14197      17889    52.47319    13.3103  POLYGON ((13.32027 52.47775, 13.31991 52.47096...
+190  14199      13657    52.47796   13.29242  POLYGON ((13.31186 52.48048, 13.30158 52.47452...
+
+[190 rows x 5 columns],                                      Betreiber                  Straße Hausnummer Adresszusatz  Postleitzahl  ... P3 [kW] Public Key3       Steckertypen4 P4 [kW] Public Key4
+0                        Albwerk GmbH & Co. KG          Ennabeurer Weg          0          NaN       72535.0  ...     NaN         NaN                 NaN     NaN         NaN
+1                                        smopi               Albstraße         14          NaN       72535.0  ...      22         NaN  AC Steckdose Typ 2      22         NaN
+2                        Albwerk GmbH & Co. KG  Parkplatz Campingplatz          0          NaN       72589.0  ...     NaN         NaN                 NaN     NaN         NaN
+3                 EnBW mobility+ AG und Co.KG              Hauptstraße        91c          NaN       73340.0  ...     NaN         NaN                 NaN     NaN         NaN
+4                             SWU Energie GmbH              Sterngasse          6          NaN       88481.0  ...     NaN         NaN                 NaN     NaN         NaN
+...                                        ...                     ...        ...          ...           ...  ...     ...         ...                 ...     ...         ...
+69381  Stadtwerke Weimar Stadtversorgungs-GmbH        Wunderwaldstraße         2a          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69382                                      eva               Lachenweg         13          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69383                          TEAG Mobil GmbH          Sulzaer Straße          0          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69384                                      NaN                     NaN        NaN          NaN           NaN  ...     NaN         NaN                 NaN     NaN         NaN
+69385                                      NaN                     NaN        NaN          NaN           NaN  ...     NaN         NaN                 NaN     NaN         NaN
+
+[69386 rows x 26 columns]), kwargs: {}
+2025-02-01 19:33:37,210 - INFO - Starting merge_geo_dataframes function.
+2025-02-01 19:33:37,213 - INFO - Merged population and charging stations DataFrames. Shape: (190, 6)
+2025-02-01 19:33:37,216 - INFO - Filling NaN values in 'Number' column with 0.
+2025-02-01 19:33:37,216 - INFO - merge_geo_dataframes function completed successfully.
+2025-02-01 19:33:37,216 - INFO -  ====> Duration 0.01 secs: 
+Merges the charging stations and population dataframes and fills NA's with 0
+Inputs:
+    - df_charging_stations: A geodataframe sorted by PLZ and containing information about the charging stations
+    - df_population: A geodataframe sorted by PLZ and containing information about the population
+Outputs: A merged geodataframe
+
+2025-02-01 19:33:37,221 - ERROR - create_electric_charging_residents_heatmap raised an exception: name 'self' is not defined
+2025-02-01 19:34:20,685 - INFO - Current working directory: E:\Study\BHT\AdvancedSE\Assignment1\BerlinChargeHub
+2025-02-01 19:34:20,695 - INFO - Starting execution of the main function.
+2025-02-01 19:34:20,701 - INFO - geodata_berlin_plz.csv loaded successfully.
+2025-02-01 19:34:20,883 - INFO - Ladesaeulenregister.csv loaded successfully.
+2025-02-01 19:34:20,883 - INFO - Starting preprop_lstat function.
+2025-02-01 19:34:20,895 - INFO - Renamed columns in DataFrame.
+2025-02-01 19:34:20,913 - INFO - Formatted latitude and longitude columns.
+2025-02-01 19:34:20,916 - INFO - Filtered data for Berlin. Shape: (2746, 5)
+2025-02-01 19:34:20,919 - INFO - Starting sort_by_plz_add_geometry function.
+2025-02-01 19:34:20,921 - INFO - Merged DataFrame with geometry. Shape: (2746, 6)
+2025-02-01 19:34:20,925 - INFO - DataFrame after dropping missing geometries. Shape: (2737, 6)
+2025-02-01 19:34:20,992 - INFO - sort_by_plz_add_geometry function completed successfully.
+2025-02-01 19:34:20,992 - INFO - preprop_lstat function completed successfully.
+2025-02-01 19:34:20,998 - INFO -  ====> Duration 0.11 secs: Preprocessing dataframe from Ladesaeulenregister.csv
+2025-02-01 19:34:20,998 - INFO - Starting count_plz_occurrences function.
+2025-02-01 19:34:21,003 - INFO - count_plz_occurrences function completed successfully. Output DataFrame shape: (183, 3)
+2025-02-01 19:34:21,005 - INFO -  ====> Duration 0.01 secs: Counts loading stations per PLZ
+2025-02-01 19:34:21,011 - INFO - plz_einwohner.csv loaded successfully.
+2025-02-01 19:34:21,011 - INFO - Starting preprop_resid function.
+2025-02-01 19:34:21,012 - INFO - Renamed columns in DataFrame.
+2025-02-01 19:34:21,018 - INFO - Formatted latitude and longitude columns.
+2025-02-01 19:34:21,019 - INFO - Filtered DataFrame by postal codes. Remaining rows: 191
+2025-02-01 19:34:21,020 - INFO - Starting sort_by_plz_add_geometry function.
+2025-02-01 19:34:21,022 - INFO - Merged DataFrame with geometry. Shape: (191, 5)
+2025-02-01 19:34:21,024 - INFO - DataFrame after dropping missing geometries. Shape: (190, 5)
+2025-02-01 19:34:21,031 - INFO - sort_by_plz_add_geometry function completed successfully.
+2025-02-01 19:34:21,031 - INFO - preprop_resid function completed successfully.
+2025-02-01 19:34:21,032 - INFO -  ====> Duration 0.02 secs: 
+Processes and prepares a dataframe by cleaning and filtering postal codes, renaming columns, and transforming
+geographical data. The function works by copying the given data, transforming numeric columns into strings, and replacing
+comma-separators for proper formatting. It also filters the dataset based on postal codes and combines additional
+geometry information via another function.
+
+Return: The processed dataframe with cleaned, formatted, and enriched data combining postal codes and geometrical information.
+:rtype: pandas.DataFrame
+
+2025-02-01 19:34:21,043 - INFO - Called create_electric_charging_residents_heatmap with args: (         PLZ  Number                                           geometry
+0    10117.0      54  POLYGON ((13.40031 52.5233, 13.40051 52.52216,...
+1    10119.0       6  POLYGON ((13.40056 52.53639, 13.4026 52.53507,...
+2    10178.0      30  POLYGON ((13.40918 52.52917, 13.41476 52.52779...
+3    10179.0      37  POLYGON ((13.42827 52.51895, 13.42751 52.51775...
+4    10243.0      39  POLYGON ((13.42554 52.52371, 13.42862 52.52358...
+..       ...     ...                                                ...
+178  14169.0      17  POLYGON ((13.24957 52.45778, 13.25047 52.45803...
+179  14193.0       3  POLYGON ((13.28149 52.49817, 13.28228 52.49778...
+180  14195.0      32  POLYGON ((13.27759 52.47487, 13.28447 52.46998...
+181  14197.0      12  POLYGON ((13.32027 52.47775, 13.31991 52.47096...
+182  14199.0       7  POLYGON ((13.31186 52.48048, 13.30158 52.47452...
+
+[183 rows x 3 columns],        PLZ  Einwohner Breitengrad Längengrad                                           geometry
+0    10115      20313    52.53195    13.3838  POLYGON ((13.37239 52.53821, 13.3741 52.53717,...
+1    10117      12217    52.51752   13.38777  POLYGON ((13.40031 52.5233, 13.40051 52.52216,...
+2    10119      16363    52.53013   13.40551  POLYGON ((13.40056 52.53639, 13.4026 52.53507,...
+3    10178      12167     52.5203   13.40473  POLYGON ((13.40918 52.52917, 13.41476 52.52779...
+4    10179      18664    52.51379   13.41524  POLYGON ((13.42827 52.51895, 13.42751 52.51775...
+..     ...        ...         ...        ...                                                ...
+186  14169      17274       52.45   13.25883  POLYGON ((13.24957 52.45778, 13.25047 52.45803...
+187  14193      15505    52.48135   13.23847  POLYGON ((13.28149 52.49817, 13.28228 52.49778...
+188  14195      14667    52.45858   13.28463  POLYGON ((13.27759 52.47487, 13.28447 52.46998...
+189  14197      17889    52.47319    13.3103  POLYGON ((13.32027 52.47775, 13.31991 52.47096...
+190  14199      13657    52.47796   13.29242  POLYGON ((13.31186 52.48048, 13.30158 52.47452...
+
+[190 rows x 5 columns],                                      Betreiber                  Straße Hausnummer Adresszusatz  Postleitzahl  ... P3 [kW] Public Key3       Steckertypen4 P4 [kW] Public Key4
+0                        Albwerk GmbH & Co. KG          Ennabeurer Weg          0          NaN       72535.0  ...     NaN         NaN                 NaN     NaN         NaN
+1                                        smopi               Albstraße         14          NaN       72535.0  ...      22         NaN  AC Steckdose Typ 2      22         NaN
+2                        Albwerk GmbH & Co. KG  Parkplatz Campingplatz          0          NaN       72589.0  ...     NaN         NaN                 NaN     NaN         NaN
+3                 EnBW mobility+ AG und Co.KG              Hauptstraße        91c          NaN       73340.0  ...     NaN         NaN                 NaN     NaN         NaN
+4                             SWU Energie GmbH              Sterngasse          6          NaN       88481.0  ...     NaN         NaN                 NaN     NaN         NaN
+...                                        ...                     ...        ...          ...           ...  ...     ...         ...                 ...     ...         ...
+69381  Stadtwerke Weimar Stadtversorgungs-GmbH        Wunderwaldstraße         2a          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69382                                      eva               Lachenweg         13          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69383                          TEAG Mobil GmbH          Sulzaer Straße          0          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69384                                      NaN                     NaN        NaN          NaN           NaN  ...     NaN         NaN                 NaN     NaN         NaN
+69385                                      NaN                     NaN        NaN          NaN           NaN  ...     NaN         NaN                 NaN     NaN         NaN
+
+[69386 rows x 26 columns]), kwargs: {}
+2025-02-01 19:34:21,044 - INFO - Starting merge_geo_dataframes function.
+2025-02-01 19:34:21,047 - INFO - Merged population and charging stations DataFrames. Shape: (190, 6)
+2025-02-01 19:34:21,050 - INFO - Filling NaN values in 'Number' column with 0.
+2025-02-01 19:34:21,050 - INFO - merge_geo_dataframes function completed successfully.
+2025-02-01 19:34:21,050 - INFO -  ====> Duration 0.01 secs: 
+Merges the charging stations and population dataframes and fills NA's with 0
+Inputs:
+    - df_charging_stations: A geodataframe sorted by PLZ and containing information about the charging stations
+    - df_population: A geodataframe sorted by PLZ and containing information about the population
+Outputs: A merged geodataframe
+
+2025-02-01 19:34:21,228 - INFO - create_electric_charging_residents_heatmap returned None
+2025-02-01 19:34:21,236 - INFO -  ====> Duration 0.54 secs: Main: Generation of Streamlit App for visualizing electric charging stations & residents in Berlin 
+2025-02-01 19:35:31,337 - INFO - Current working directory: E:\Study\BHT\AdvancedSE\Assignment1\BerlinChargeHub
+2025-02-01 19:35:31,345 - INFO - Starting execution of the main function.
+2025-02-01 19:35:31,351 - INFO - geodata_berlin_plz.csv loaded successfully.
+2025-02-01 19:35:31,535 - INFO - Ladesaeulenregister.csv loaded successfully.
+2025-02-01 19:35:31,536 - INFO - Starting preprop_lstat function.
+2025-02-01 19:35:31,549 - INFO - Renamed columns in DataFrame.
+2025-02-01 19:35:31,569 - INFO - Formatted latitude and longitude columns.
+2025-02-01 19:35:31,571 - INFO - Filtered data for Berlin. Shape: (2746, 5)
+2025-02-01 19:35:31,575 - INFO - Starting sort_by_plz_add_geometry function.
+2025-02-01 19:35:31,577 - INFO - Merged DataFrame with geometry. Shape: (2746, 6)
+2025-02-01 19:35:31,580 - INFO - DataFrame after dropping missing geometries. Shape: (2737, 6)
+2025-02-01 19:35:31,653 - INFO - sort_by_plz_add_geometry function completed successfully.
+2025-02-01 19:35:31,653 - INFO - preprop_lstat function completed successfully.
+2025-02-01 19:35:31,661 - INFO -  ====> Duration 0.13 secs: Preprocessing dataframe from Ladesaeulenregister.csv
+2025-02-01 19:35:31,661 - INFO - Starting count_plz_occurrences function.
+2025-02-01 19:35:31,668 - INFO - count_plz_occurrences function completed successfully. Output DataFrame shape: (183, 3)
+2025-02-01 19:35:31,671 - INFO -  ====> Duration 0.01 secs: Counts loading stations per PLZ
+2025-02-01 19:35:31,676 - INFO - plz_einwohner.csv loaded successfully.
+2025-02-01 19:35:31,732 - INFO - Starting preprop_resid function.
+2025-02-01 19:35:31,734 - INFO - Renamed columns in DataFrame.
+2025-02-01 19:35:31,742 - INFO - Formatted latitude and longitude columns.
+2025-02-01 19:35:31,742 - INFO - Filtered DataFrame by postal codes. Remaining rows: 191
+2025-02-01 19:35:31,744 - INFO - Starting sort_by_plz_add_geometry function.
+2025-02-01 19:35:31,745 - INFO - Merged DataFrame with geometry. Shape: (191, 5)
+2025-02-01 19:35:31,748 - INFO - DataFrame after dropping missing geometries. Shape: (190, 5)
+2025-02-01 19:35:31,755 - INFO - sort_by_plz_add_geometry function completed successfully.
+2025-02-01 19:35:31,755 - INFO - preprop_resid function completed successfully.
+2025-02-01 19:35:31,756 - INFO -  ====> Duration 0.02 secs: 
+Processes and prepares a dataframe by cleaning and filtering postal codes, renaming columns, and transforming
+geographical data. The function works by copying the given data, transforming numeric columns into strings, and replacing
+comma-separators for proper formatting. It also filters the dataset based on postal codes and combines additional
+geometry information via another function.
+
+Return: The processed dataframe with cleaned, formatted, and enriched data combining postal codes and geometrical information.
+:rtype: pandas.DataFrame
+
+2025-02-01 19:35:31,769 - INFO - Called create_electric_charging_residents_heatmap with args: (         PLZ  Number                                           geometry
+0    10117.0      54  POLYGON ((13.40031 52.5233, 13.40051 52.52216,...
+1    10119.0       6  POLYGON ((13.40056 52.53639, 13.4026 52.53507,...
+2    10178.0      30  POLYGON ((13.40918 52.52917, 13.41476 52.52779...
+3    10179.0      37  POLYGON ((13.42827 52.51895, 13.42751 52.51775...
+4    10243.0      39  POLYGON ((13.42554 52.52371, 13.42862 52.52358...
+..       ...     ...                                                ...
+178  14169.0      17  POLYGON ((13.24957 52.45778, 13.25047 52.45803...
+179  14193.0       3  POLYGON ((13.28149 52.49817, 13.28228 52.49778...
+180  14195.0      32  POLYGON ((13.27759 52.47487, 13.28447 52.46998...
+181  14197.0      12  POLYGON ((13.32027 52.47775, 13.31991 52.47096...
+182  14199.0       7  POLYGON ((13.31186 52.48048, 13.30158 52.47452...
+
+[183 rows x 3 columns],        PLZ  Einwohner Breitengrad Längengrad                                           geometry
+0    10115      20313    52.53195    13.3838  POLYGON ((13.37239 52.53821, 13.3741 52.53717,...
+1    10117      12217    52.51752   13.38777  POLYGON ((13.40031 52.5233, 13.40051 52.52216,...
+2    10119      16363    52.53013   13.40551  POLYGON ((13.40056 52.53639, 13.4026 52.53507,...
+3    10178      12167     52.5203   13.40473  POLYGON ((13.40918 52.52917, 13.41476 52.52779...
+4    10179      18664    52.51379   13.41524  POLYGON ((13.42827 52.51895, 13.42751 52.51775...
+..     ...        ...         ...        ...                                                ...
+186  14169      17274       52.45   13.25883  POLYGON ((13.24957 52.45778, 13.25047 52.45803...
+187  14193      15505    52.48135   13.23847  POLYGON ((13.28149 52.49817, 13.28228 52.49778...
+188  14195      14667    52.45858   13.28463  POLYGON ((13.27759 52.47487, 13.28447 52.46998...
+189  14197      17889    52.47319    13.3103  POLYGON ((13.32027 52.47775, 13.31991 52.47096...
+190  14199      13657    52.47796   13.29242  POLYGON ((13.31186 52.48048, 13.30158 52.47452...
+
+[190 rows x 5 columns],                                      Betreiber                  Straße Hausnummer Adresszusatz  Postleitzahl  ... P3 [kW] Public Key3       Steckertypen4 P4 [kW] Public Key4
+0                        Albwerk GmbH & Co. KG          Ennabeurer Weg          0          NaN       72535.0  ...     NaN         NaN                 NaN     NaN         NaN
+1                                        smopi               Albstraße         14          NaN       72535.0  ...      22         NaN  AC Steckdose Typ 2      22         NaN
+2                        Albwerk GmbH & Co. KG  Parkplatz Campingplatz          0          NaN       72589.0  ...     NaN         NaN                 NaN     NaN         NaN
+3                 EnBW mobility+ AG und Co.KG              Hauptstraße        91c          NaN       73340.0  ...     NaN         NaN                 NaN     NaN         NaN
+4                             SWU Energie GmbH              Sterngasse          6          NaN       88481.0  ...     NaN         NaN                 NaN     NaN         NaN
+...                                        ...                     ...        ...          ...           ...  ...     ...         ...                 ...     ...         ...
+69381  Stadtwerke Weimar Stadtversorgungs-GmbH        Wunderwaldstraße         2a          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69382                                      eva               Lachenweg         13          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69383                          TEAG Mobil GmbH          Sulzaer Straße          0          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69384                                      NaN                     NaN        NaN          NaN           NaN  ...     NaN         NaN                 NaN     NaN         NaN
+69385                                      NaN                     NaN        NaN          NaN           NaN  ...     NaN         NaN                 NaN     NaN         NaN
+
+[69386 rows x 26 columns]), kwargs: {}
+2025-02-01 19:35:31,770 - INFO - Starting merge_geo_dataframes function.
+2025-02-01 19:35:31,773 - INFO - Merged population and charging stations DataFrames. Shape: (190, 6)
+2025-02-01 19:35:31,775 - INFO - Filling NaN values in 'Number' column with 0.
+2025-02-01 19:35:31,776 - INFO - merge_geo_dataframes function completed successfully.
+2025-02-01 19:35:31,776 - INFO -  ====> Duration 0.01 secs: 
+Merges the charging stations and population dataframes and fills NA's with 0
+Inputs:
+    - df_charging_stations: A geodataframe sorted by PLZ and containing information about the charging stations
+    - df_population: A geodataframe sorted by PLZ and containing information about the population
+Outputs: A merged geodataframe
+
+2025-02-01 19:35:31,949 - INFO - create_electric_charging_residents_heatmap returned None
+2025-02-01 19:35:31,957 - INFO -  ====> Duration 0.61 secs: Main: Generation of Streamlit App for visualizing electric charging stations & residents in Berlin 
+2025-02-01 19:42:26,941 - INFO - Current working directory: E:\Study\BHT\AdvancedSE\Assignment1\BerlinChargeHub
+2025-02-01 19:42:26,948 - INFO - Starting execution of the main function.
+2025-02-01 19:42:26,954 - INFO - geodata_berlin_plz.csv loaded successfully.
+2025-02-01 19:42:27,157 - INFO - Ladesaeulenregister.csv loaded successfully.
+2025-02-01 19:42:27,158 - INFO - Starting preprop_lstat function.
+2025-02-01 19:42:27,169 - INFO - Renamed columns in DataFrame.
+2025-02-01 19:42:27,188 - INFO - Formatted latitude and longitude columns.
+2025-02-01 19:42:27,191 - INFO - Filtered data for Berlin. Shape: (2746, 5)
+2025-02-01 19:42:27,194 - INFO - Starting sort_by_plz_add_geometry function.
+2025-02-01 19:42:27,196 - INFO - Merged DataFrame with geometry. Shape: (2746, 6)
+2025-02-01 19:42:27,199 - INFO - DataFrame after dropping missing geometries. Shape: (2737, 6)
+2025-02-01 19:42:27,264 - INFO - sort_by_plz_add_geometry function completed successfully.
+2025-02-01 19:42:27,264 - INFO - preprop_lstat function completed successfully.
+2025-02-01 19:42:27,271 - INFO -  ====> Duration 0.11 secs: Preprocessing dataframe from Ladesaeulenregister.csv
+2025-02-01 19:42:27,271 - INFO - Starting count_plz_occurrences function.
+2025-02-01 19:42:27,276 - INFO - count_plz_occurrences function completed successfully. Output DataFrame shape: (183, 3)
+2025-02-01 19:42:27,278 - INFO -  ====> Duration 0.01 secs: Counts loading stations per PLZ
+2025-02-01 19:42:27,285 - INFO - plz_einwohner.csv loaded successfully.
+2025-02-01 19:42:27,285 - INFO - Starting preprop_resid function.
+2025-02-01 19:42:27,286 - INFO - Renamed columns in DataFrame.
+2025-02-01 19:42:27,292 - INFO - Formatted latitude and longitude columns.
+2025-02-01 19:42:27,292 - INFO - Filtered DataFrame by postal codes. Remaining rows: 191
+2025-02-01 19:42:27,294 - INFO - Starting sort_by_plz_add_geometry function.
+2025-02-01 19:42:27,295 - INFO - Merged DataFrame with geometry. Shape: (191, 5)
+2025-02-01 19:42:27,297 - INFO - DataFrame after dropping missing geometries. Shape: (190, 5)
+2025-02-01 19:42:27,304 - INFO - sort_by_plz_add_geometry function completed successfully.
+2025-02-01 19:42:27,305 - INFO - preprop_resid function completed successfully.
+2025-02-01 19:42:27,305 - INFO -  ====> Duration 0.02 secs: 
+Processes and prepares a dataframe by cleaning and filtering postal codes, renaming columns, and transforming
+geographical data. The function works by copying the given data, transforming numeric columns into strings, and replacing
+comma-separators for proper formatting. It also filters the dataset based on postal codes and combines additional
+geometry information via another function.
+
+Return: The processed dataframe with cleaned, formatted, and enriched data combining postal codes and geometrical information.
+:rtype: pandas.DataFrame
+
+2025-02-01 19:42:27,317 - INFO - Called create_electric_charging_residents_heatmap with args: (         PLZ  Number                                           geometry
+0    10117.0      54  POLYGON ((13.40031 52.5233, 13.40051 52.52216,...
+1    10119.0       6  POLYGON ((13.40056 52.53639, 13.4026 52.53507,...
+2    10178.0      30  POLYGON ((13.40918 52.52917, 13.41476 52.52779...
+3    10179.0      37  POLYGON ((13.42827 52.51895, 13.42751 52.51775...
+4    10243.0      39  POLYGON ((13.42554 52.52371, 13.42862 52.52358...
+..       ...     ...                                                ...
+178  14169.0      17  POLYGON ((13.24957 52.45778, 13.25047 52.45803...
+179  14193.0       3  POLYGON ((13.28149 52.49817, 13.28228 52.49778...
+180  14195.0      32  POLYGON ((13.27759 52.47487, 13.28447 52.46998...
+181  14197.0      12  POLYGON ((13.32027 52.47775, 13.31991 52.47096...
+182  14199.0       7  POLYGON ((13.31186 52.48048, 13.30158 52.47452...
+
+[183 rows x 3 columns],        PLZ  Einwohner Breitengrad Längengrad                                           geometry
+0    10115      20313    52.53195    13.3838  POLYGON ((13.37239 52.53821, 13.3741 52.53717,...
+1    10117      12217    52.51752   13.38777  POLYGON ((13.40031 52.5233, 13.40051 52.52216,...
+2    10119      16363    52.53013   13.40551  POLYGON ((13.40056 52.53639, 13.4026 52.53507,...
+3    10178      12167     52.5203   13.40473  POLYGON ((13.40918 52.52917, 13.41476 52.52779...
+4    10179      18664    52.51379   13.41524  POLYGON ((13.42827 52.51895, 13.42751 52.51775...
+..     ...        ...         ...        ...                                                ...
+186  14169      17274       52.45   13.25883  POLYGON ((13.24957 52.45778, 13.25047 52.45803...
+187  14193      15505    52.48135   13.23847  POLYGON ((13.28149 52.49817, 13.28228 52.49778...
+188  14195      14667    52.45858   13.28463  POLYGON ((13.27759 52.47487, 13.28447 52.46998...
+189  14197      17889    52.47319    13.3103  POLYGON ((13.32027 52.47775, 13.31991 52.47096...
+190  14199      13657    52.47796   13.29242  POLYGON ((13.31186 52.48048, 13.30158 52.47452...
+
+[190 rows x 5 columns],                                      Betreiber                  Straße Hausnummer Adresszusatz  Postleitzahl  ... P3 [kW] Public Key3       Steckertypen4 P4 [kW] Public Key4
+0                        Albwerk GmbH & Co. KG          Ennabeurer Weg          0          NaN       72535.0  ...     NaN         NaN                 NaN     NaN         NaN
+1                                        smopi               Albstraße         14          NaN       72535.0  ...      22         NaN  AC Steckdose Typ 2      22         NaN
+2                        Albwerk GmbH & Co. KG  Parkplatz Campingplatz          0          NaN       72589.0  ...     NaN         NaN                 NaN     NaN         NaN
+3                 EnBW mobility+ AG und Co.KG              Hauptstraße        91c          NaN       73340.0  ...     NaN         NaN                 NaN     NaN         NaN
+4                             SWU Energie GmbH              Sterngasse          6          NaN       88481.0  ...     NaN         NaN                 NaN     NaN         NaN
+...                                        ...                     ...        ...          ...           ...  ...     ...         ...                 ...     ...         ...
+69381  Stadtwerke Weimar Stadtversorgungs-GmbH        Wunderwaldstraße         2a          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69382                                      eva               Lachenweg         13          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69383                          TEAG Mobil GmbH          Sulzaer Straße          0          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69384                                      NaN                     NaN        NaN          NaN           NaN  ...     NaN         NaN                 NaN     NaN         NaN
+69385                                      NaN                     NaN        NaN          NaN           NaN  ...     NaN         NaN                 NaN     NaN         NaN
+
+[69386 rows x 26 columns]), kwargs: {}
+2025-02-01 19:42:27,318 - INFO - Starting merge_geo_dataframes function.
+2025-02-01 19:42:27,321 - INFO - Merged population and charging stations DataFrames. Shape: (190, 6)
+2025-02-01 19:42:27,324 - INFO - Filling NaN values in 'Number' column with 0.
+2025-02-01 19:42:27,324 - INFO - merge_geo_dataframes function completed successfully.
+2025-02-01 19:42:27,324 - INFO -  ====> Duration 0.01 secs: 
+Merges the charging stations and population dataframes and fills NA's with 0
+Inputs:
+    - df_charging_stations: A geodataframe sorted by PLZ and containing information about the charging stations
+    - df_population: A geodataframe sorted by PLZ and containing information about the population
+Outputs: A merged geodataframe
+
+2025-02-01 19:42:27,330 - ERROR - create_electric_charging_residents_heatmap raised an exception: 'NoneType' object has no attribute 'scale_to_range'
+2025-02-01 19:45:15,581 - INFO - Current working directory: E:\Study\BHT\AdvancedSE\Assignment1\BerlinChargeHub
+2025-02-01 19:45:15,590 - INFO - Starting execution of the main function.
+2025-02-01 19:45:15,595 - INFO - geodata_berlin_plz.csv loaded successfully.
+2025-02-01 19:45:15,758 - INFO - Ladesaeulenregister.csv loaded successfully.
+2025-02-01 19:45:15,758 - INFO - Starting preprop_lstat function.
+2025-02-01 19:45:15,768 - INFO - Renamed columns in DataFrame.
+2025-02-01 19:45:15,785 - INFO - Formatted latitude and longitude columns.
+2025-02-01 19:45:15,788 - INFO - Filtered data for Berlin. Shape: (2746, 5)
+2025-02-01 19:45:15,790 - INFO - Starting sort_by_plz_add_geometry function.
+2025-02-01 19:45:15,792 - INFO - Merged DataFrame with geometry. Shape: (2746, 6)
+2025-02-01 19:45:15,795 - INFO - DataFrame after dropping missing geometries. Shape: (2737, 6)
+2025-02-01 19:45:15,860 - INFO - sort_by_plz_add_geometry function completed successfully.
+2025-02-01 19:45:15,860 - INFO - preprop_lstat function completed successfully.
+2025-02-01 19:45:15,864 - INFO -  ====> Duration 0.11 secs: Preprocessing dataframe from Ladesaeulenregister.csv
+2025-02-01 19:45:15,864 - INFO - Starting count_plz_occurrences function.
+2025-02-01 19:45:15,870 - INFO - count_plz_occurrences function completed successfully. Output DataFrame shape: (183, 3)
+2025-02-01 19:45:15,872 - INFO -  ====> Duration 0.01 secs: Counts loading stations per PLZ
+2025-02-01 19:45:15,878 - INFO - plz_einwohner.csv loaded successfully.
+2025-02-01 19:45:15,878 - INFO - Starting preprop_resid function.
+2025-02-01 19:45:15,879 - INFO - Renamed columns in DataFrame.
+2025-02-01 19:45:15,885 - INFO - Formatted latitude and longitude columns.
+2025-02-01 19:45:15,885 - INFO - Filtered DataFrame by postal codes. Remaining rows: 191
+2025-02-01 19:45:15,887 - INFO - Starting sort_by_plz_add_geometry function.
+2025-02-01 19:45:15,888 - INFO - Merged DataFrame with geometry. Shape: (191, 5)
+2025-02-01 19:45:15,890 - INFO - DataFrame after dropping missing geometries. Shape: (190, 5)
+2025-02-01 19:45:15,896 - INFO - sort_by_plz_add_geometry function completed successfully.
+2025-02-01 19:45:15,897 - INFO - preprop_resid function completed successfully.
+2025-02-01 19:45:15,897 - INFO -  ====> Duration 0.02 secs: 
+Processes and prepares a dataframe by cleaning and filtering postal codes, renaming columns, and transforming
+geographical data. The function works by copying the given data, transforming numeric columns into strings, and replacing
+comma-separators for proper formatting. It also filters the dataset based on postal codes and combines additional
+geometry information via another function.
+
+Return: The processed dataframe with cleaned, formatted, and enriched data combining postal codes and geometrical information.
+:rtype: pandas.DataFrame
+
+2025-02-01 19:45:15,909 - INFO - Called create_electric_charging_residents_heatmap with args: (         PLZ  Number                                           geometry
+0    10117.0      54  POLYGON ((13.40031 52.5233, 13.40051 52.52216,...
+1    10119.0       6  POLYGON ((13.40056 52.53639, 13.4026 52.53507,...
+2    10178.0      30  POLYGON ((13.40918 52.52917, 13.41476 52.52779...
+3    10179.0      37  POLYGON ((13.42827 52.51895, 13.42751 52.51775...
+4    10243.0      39  POLYGON ((13.42554 52.52371, 13.42862 52.52358...
+..       ...     ...                                                ...
+178  14169.0      17  POLYGON ((13.24957 52.45778, 13.25047 52.45803...
+179  14193.0       3  POLYGON ((13.28149 52.49817, 13.28228 52.49778...
+180  14195.0      32  POLYGON ((13.27759 52.47487, 13.28447 52.46998...
+181  14197.0      12  POLYGON ((13.32027 52.47775, 13.31991 52.47096...
+182  14199.0       7  POLYGON ((13.31186 52.48048, 13.30158 52.47452...
+
+[183 rows x 3 columns],        PLZ  Einwohner Breitengrad Längengrad                                           geometry
+0    10115      20313    52.53195    13.3838  POLYGON ((13.37239 52.53821, 13.3741 52.53717,...
+1    10117      12217    52.51752   13.38777  POLYGON ((13.40031 52.5233, 13.40051 52.52216,...
+2    10119      16363    52.53013   13.40551  POLYGON ((13.40056 52.53639, 13.4026 52.53507,...
+3    10178      12167     52.5203   13.40473  POLYGON ((13.40918 52.52917, 13.41476 52.52779...
+4    10179      18664    52.51379   13.41524  POLYGON ((13.42827 52.51895, 13.42751 52.51775...
+..     ...        ...         ...        ...                                                ...
+186  14169      17274       52.45   13.25883  POLYGON ((13.24957 52.45778, 13.25047 52.45803...
+187  14193      15505    52.48135   13.23847  POLYGON ((13.28149 52.49817, 13.28228 52.49778...
+188  14195      14667    52.45858   13.28463  POLYGON ((13.27759 52.47487, 13.28447 52.46998...
+189  14197      17889    52.47319    13.3103  POLYGON ((13.32027 52.47775, 13.31991 52.47096...
+190  14199      13657    52.47796   13.29242  POLYGON ((13.31186 52.48048, 13.30158 52.47452...
+
+[190 rows x 5 columns],                                      Betreiber                  Straße Hausnummer Adresszusatz  Postleitzahl  ... P3 [kW] Public Key3       Steckertypen4 P4 [kW] Public Key4
+0                        Albwerk GmbH & Co. KG          Ennabeurer Weg          0          NaN       72535.0  ...     NaN         NaN                 NaN     NaN         NaN
+1                                        smopi               Albstraße         14          NaN       72535.0  ...      22         NaN  AC Steckdose Typ 2      22         NaN
+2                        Albwerk GmbH & Co. KG  Parkplatz Campingplatz          0          NaN       72589.0  ...     NaN         NaN                 NaN     NaN         NaN
+3                 EnBW mobility+ AG und Co.KG              Hauptstraße        91c          NaN       73340.0  ...     NaN         NaN                 NaN     NaN         NaN
+4                             SWU Energie GmbH              Sterngasse          6          NaN       88481.0  ...     NaN         NaN                 NaN     NaN         NaN
+...                                        ...                     ...        ...          ...           ...  ...     ...         ...                 ...     ...         ...
+69381  Stadtwerke Weimar Stadtversorgungs-GmbH        Wunderwaldstraße         2a          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69382                                      eva               Lachenweg         13          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69383                          TEAG Mobil GmbH          Sulzaer Straße          0          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69384                                      NaN                     NaN        NaN          NaN           NaN  ...     NaN         NaN                 NaN     NaN         NaN
+69385                                      NaN                     NaN        NaN          NaN           NaN  ...     NaN         NaN                 NaN     NaN         NaN
+
+[69386 rows x 26 columns]), kwargs: {}
+2025-02-01 19:45:15,910 - INFO - Starting merge_geo_dataframes function.
+2025-02-01 19:45:15,913 - INFO - Merged population and charging stations DataFrames. Shape: (190, 6)
+2025-02-01 19:45:15,915 - INFO - Filling NaN values in 'Number' column with 0.
+2025-02-01 19:45:15,915 - INFO - merge_geo_dataframes function completed successfully.
+2025-02-01 19:45:15,916 - INFO -  ====> Duration 0.01 secs: 
+Merges the charging stations and population dataframes and fills NA's with 0
+Inputs:
+    - df_charging_stations: A geodataframe sorted by PLZ and containing information about the charging stations
+    - df_population: A geodataframe sorted by PLZ and containing information about the population
+Outputs: A merged geodataframe
+
+2025-02-01 19:45:15,920 - ERROR - create_electric_charging_residents_heatmap raised an exception: 'float' object is not iterable
+2025-02-01 19:45:34,069 - INFO - Current working directory: E:\Study\BHT\AdvancedSE\Assignment1\BerlinChargeHub
+2025-02-01 19:45:34,076 - INFO - Starting execution of the main function.
+2025-02-01 19:45:34,081 - INFO - geodata_berlin_plz.csv loaded successfully.
+2025-02-01 19:45:34,261 - INFO - Ladesaeulenregister.csv loaded successfully.
+2025-02-01 19:45:34,261 - INFO - Starting preprop_lstat function.
+2025-02-01 19:45:34,275 - INFO - Renamed columns in DataFrame.
+2025-02-01 19:45:34,292 - INFO - Formatted latitude and longitude columns.
+2025-02-01 19:45:34,294 - INFO - Filtered data for Berlin. Shape: (2746, 5)
+2025-02-01 19:45:34,297 - INFO - Starting sort_by_plz_add_geometry function.
+2025-02-01 19:45:34,299 - INFO - Merged DataFrame with geometry. Shape: (2746, 6)
+2025-02-01 19:45:34,302 - INFO - DataFrame after dropping missing geometries. Shape: (2737, 6)
+2025-02-01 19:45:34,369 - INFO - sort_by_plz_add_geometry function completed successfully.
+2025-02-01 19:45:34,370 - INFO - preprop_lstat function completed successfully.
+2025-02-01 19:45:34,375 - INFO -  ====> Duration 0.11 secs: Preprocessing dataframe from Ladesaeulenregister.csv
+2025-02-01 19:45:34,376 - INFO - Starting count_plz_occurrences function.
+2025-02-01 19:45:34,381 - INFO - count_plz_occurrences function completed successfully. Output DataFrame shape: (183, 3)
+2025-02-01 19:45:34,383 - INFO -  ====> Duration 0.01 secs: Counts loading stations per PLZ
+2025-02-01 19:45:34,390 - INFO - plz_einwohner.csv loaded successfully.
+2025-02-01 19:45:34,390 - INFO - Starting preprop_resid function.
+2025-02-01 19:45:34,391 - INFO - Renamed columns in DataFrame.
+2025-02-01 19:45:34,397 - INFO - Formatted latitude and longitude columns.
+2025-02-01 19:45:34,398 - INFO - Filtered DataFrame by postal codes. Remaining rows: 191
+2025-02-01 19:45:34,400 - INFO - Starting sort_by_plz_add_geometry function.
+2025-02-01 19:45:34,401 - INFO - Merged DataFrame with geometry. Shape: (191, 5)
+2025-02-01 19:45:34,403 - INFO - DataFrame after dropping missing geometries. Shape: (190, 5)
+2025-02-01 19:45:34,410 - INFO - sort_by_plz_add_geometry function completed successfully.
+2025-02-01 19:45:34,410 - INFO - preprop_resid function completed successfully.
+2025-02-01 19:45:34,410 - INFO -  ====> Duration 0.02 secs: 
+Processes and prepares a dataframe by cleaning and filtering postal codes, renaming columns, and transforming
+geographical data. The function works by copying the given data, transforming numeric columns into strings, and replacing
+comma-separators for proper formatting. It also filters the dataset based on postal codes and combines additional
+geometry information via another function.
+
+Return: The processed dataframe with cleaned, formatted, and enriched data combining postal codes and geometrical information.
+:rtype: pandas.DataFrame
+
+2025-02-01 19:45:34,422 - INFO - Called create_electric_charging_residents_heatmap with args: (         PLZ  Number                                           geometry
+0    10117.0      54  POLYGON ((13.40031 52.5233, 13.40051 52.52216,...
+1    10119.0       6  POLYGON ((13.40056 52.53639, 13.4026 52.53507,...
+2    10178.0      30  POLYGON ((13.40918 52.52917, 13.41476 52.52779...
+3    10179.0      37  POLYGON ((13.42827 52.51895, 13.42751 52.51775...
+4    10243.0      39  POLYGON ((13.42554 52.52371, 13.42862 52.52358...
+..       ...     ...                                                ...
+178  14169.0      17  POLYGON ((13.24957 52.45778, 13.25047 52.45803...
+179  14193.0       3  POLYGON ((13.28149 52.49817, 13.28228 52.49778...
+180  14195.0      32  POLYGON ((13.27759 52.47487, 13.28447 52.46998...
+181  14197.0      12  POLYGON ((13.32027 52.47775, 13.31991 52.47096...
+182  14199.0       7  POLYGON ((13.31186 52.48048, 13.30158 52.47452...
+
+[183 rows x 3 columns],        PLZ  Einwohner Breitengrad Längengrad                                           geometry
+0    10115      20313    52.53195    13.3838  POLYGON ((13.37239 52.53821, 13.3741 52.53717,...
+1    10117      12217    52.51752   13.38777  POLYGON ((13.40031 52.5233, 13.40051 52.52216,...
+2    10119      16363    52.53013   13.40551  POLYGON ((13.40056 52.53639, 13.4026 52.53507,...
+3    10178      12167     52.5203   13.40473  POLYGON ((13.40918 52.52917, 13.41476 52.52779...
+4    10179      18664    52.51379   13.41524  POLYGON ((13.42827 52.51895, 13.42751 52.51775...
+..     ...        ...         ...        ...                                                ...
+186  14169      17274       52.45   13.25883  POLYGON ((13.24957 52.45778, 13.25047 52.45803...
+187  14193      15505    52.48135   13.23847  POLYGON ((13.28149 52.49817, 13.28228 52.49778...
+188  14195      14667    52.45858   13.28463  POLYGON ((13.27759 52.47487, 13.28447 52.46998...
+189  14197      17889    52.47319    13.3103  POLYGON ((13.32027 52.47775, 13.31991 52.47096...
+190  14199      13657    52.47796   13.29242  POLYGON ((13.31186 52.48048, 13.30158 52.47452...
+
+[190 rows x 5 columns],                                      Betreiber                  Straße Hausnummer Adresszusatz  Postleitzahl  ... P3 [kW] Public Key3       Steckertypen4 P4 [kW] Public Key4
+0                        Albwerk GmbH & Co. KG          Ennabeurer Weg          0          NaN       72535.0  ...     NaN         NaN                 NaN     NaN         NaN
+1                                        smopi               Albstraße         14          NaN       72535.0  ...      22         NaN  AC Steckdose Typ 2      22         NaN
+2                        Albwerk GmbH & Co. KG  Parkplatz Campingplatz          0          NaN       72589.0  ...     NaN         NaN                 NaN     NaN         NaN
+3                 EnBW mobility+ AG und Co.KG              Hauptstraße        91c          NaN       73340.0  ...     NaN         NaN                 NaN     NaN         NaN
+4                             SWU Energie GmbH              Sterngasse          6          NaN       88481.0  ...     NaN         NaN                 NaN     NaN         NaN
+...                                        ...                     ...        ...          ...           ...  ...     ...         ...                 ...     ...         ...
+69381  Stadtwerke Weimar Stadtversorgungs-GmbH        Wunderwaldstraße         2a          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69382                                      eva               Lachenweg         13          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69383                          TEAG Mobil GmbH          Sulzaer Straße          0          NaN       99518.0  ...     NaN         NaN                 NaN     NaN         NaN
+69384                                      NaN                     NaN        NaN          NaN           NaN  ...     NaN         NaN                 NaN     NaN         NaN
+69385                                      NaN                     NaN        NaN          NaN           NaN  ...     NaN         NaN                 NaN     NaN         NaN
+
+[69386 rows x 26 columns]), kwargs: {}
+2025-02-01 19:45:34,423 - INFO - Starting merge_geo_dataframes function.
+2025-02-01 19:45:34,426 - INFO - Merged population and charging stations DataFrames. Shape: (190, 6)
+2025-02-01 19:45:34,428 - INFO - Filling NaN values in 'Number' column with 0.
+2025-02-01 19:45:34,429 - INFO - merge_geo_dataframes function completed successfully.
+2025-02-01 19:45:34,429 - INFO -  ====> Duration 0.01 secs: 
+Merges the charging stations and population dataframes and fills NA's with 0
+Inputs:
+    - df_charging_stations: A geodataframe sorted by PLZ and containing information about the charging stations
+    - df_population: A geodataframe sorted by PLZ and containing information about the population
+Outputs: A merged geodataframe
+
+2025-02-01 19:45:34,605 - INFO - create_electric_charging_residents_heatmap returned None
+2025-02-01 19:45:34,612 - INFO -  ====> Duration 0.54 secs: Main: Generation of Streamlit App for visualizing electric charging stations & residents in Berlin 

@@ -1,4 +1,5 @@
 ```
+<<<<<<< HEAD
 project_root/
 │
 ├── src/
@@ -72,6 +73,52 @@ The **Electric Charging Stations and Residents Heatmap** is an interactive web a
 1. Install dependencies using `pip install -r requirements.txt`.
 2. Run the app with `streamlit run src/app/create_heatmap.py`.
 3. Interact with the map, search stations by postal code, and explore data layers.
+=======
+BerlinChargeHub/
+├── .idea/
+│   ├── workspace.xml
+│   ├── modules.xml
+│   └── ...
+├── __pycache__/
+│   └── ...
+├── datasets/
+│   ├── charging_stations.csv
+│   ├── demand_data.csv
+│   └── ...
+├── presentation/
+│   └── EventFlow_SequenceFlow/
+│       ├── event_flow_diagram.png
+│       ├── sequence_flow_chart.pdf
+│       └── ...
+├── src/
+│   ├── __init__.py
+│   ├── domain/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   ├── events.py
+│   │   └── exceptions.py
+│   ├── application/
+│   │   ├── __init__.py
+│   │   └── services.py
+│   ├── infrastructure/
+│   │   ├── __init__.py
+│   │   └── repositories.py
+│   └── utils/
+│       ├── __init__.py
+│       └── data_loader.py
+├── tests/
+│   ├── __init__.py
+│   ├── test_station_search.py
+│   └── test_demand_indicator.py
+├── README.md
+├── config.py
+├── .gitignore
+├── main.py
+└── requirements.txt
+
+```
+
+>>>>>>> 07b7a626c6e11cf03ef32d8f14eed4df8e1bfe74
 Notes:
 
 .idea/: Contains IDE-specific settings and configurations.
@@ -95,4 +142,8 @@ README.md: Project overview and documentation.
 config.py: Configuration settings.
 .gitignore: Specifies files and directories for Git to ignore.
 main.py: Primary executable script.
+<<<<<<< HEAD
 requirements.txt: Lists project dependencies.
+=======
+requirements.txt: Lists project dependencies.
+>>>>>>> 07b7a626c6e11cf03ef32d8f14eed4df8e1bfe74

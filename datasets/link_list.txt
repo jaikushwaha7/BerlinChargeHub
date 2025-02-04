@@ -1,0 +1,28 @@
+
+# Ladesäuleninfrastruktur je PLZ
+https://www.bundesnetzagentur.de/DE/Fachthemen/ElektrizitaetundGas/E-Mobilitaet/start.html
+
+# Gebäudearten je PLZ
+https://daten.odis-berlin.de/de/dataset/gebaeude/
+
+# Bevölkerungsgröße je PLZ
+https://www.suche-postleitzahl.org/downloads
+
+# Verkehrsmengen je Bezirk
+https://daten.berlin.de/datensaetze/verkehrsmengen-dtvw-2019-wfs-44f64418
+
+
+
+
+
+# Ladesäuleninfrastruktur je PLZ
+https://fbinter.stadt-berlin.de/fb/index.jsp
+Elektro-Ladesäulen - Standorte
+
+# Gebäudearten je PLZ
+https://gdi.berlin.de/geonetwork/srv/ger/catalog.search#/search?facet.q=inspireThemeURI%2Fhttp%253A%252F%252Finspire.ec.europa.eu%252Ftheme%252Fbu
+
+
+
+
+https://github.com/funkeinteraktiv/Berlin-Geodaten

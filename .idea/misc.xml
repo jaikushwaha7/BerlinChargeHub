@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Black">
+<<<<<<< HEAD
     <option name="sdkName" value="Python 3.13 (BerlinChargeHub_Refactored)" />
+=======
+    <option name="sdkName" value="Python 3.13 (BerlinChargeHub)" />
+>>>>>>> 07b7a626c6e11cf03ef32d8f14eed4df8e1bfe74
   </component>
 </project>

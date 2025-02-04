@@ -2,6 +2,7 @@
   <profile version="1.0">
     <option name="myName" value="Project Default" />
     <inspection_tool class="Eslint" enabled="true" level="WARNING" enabled_by_default="true" />
+<<<<<<< HEAD
     <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="ignoredPackages">
         <value>
@@ -19,5 +20,7 @@
         </list>
       </option>
     </inspection_tool>
+=======
+>>>>>>> 07b7a626c6e11cf03ef32d8f14eed4df8e1bfe74
   </profile>
 </component>

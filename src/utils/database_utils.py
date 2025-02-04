@@ -30,9 +30,13 @@ def init_db():
 
 
 def hash_password(password: str) -> str:
+<<<<<<< HEAD
     """
     Hash a password for storing.
     """
+=======
+    """Hash a password for storing."""
+>>>>>>> 07b7a626c6e11cf03ef32d8f14eed4df8e1bfe74
     # salt = "streamlit-heatmap-salt"  # In production, use proper secret management
     # return hashlib.sha256(salt.encode() + password.encode()).hexdigest()
     return str(password)
